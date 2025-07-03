@@ -1,0 +1,19 @@
+{
+    "name": "lc/timetoread",
+    "description": "",
+    "type": "project",
+    "license": "GPLv3",
+    "autoload": {
+        "psr-4": {
+            "lc\\timetoread\\": ""
+        }
+    },
+    "authors": [
+        {
+            "name": "Luke Clifton",
+            "email": "luke@lscwebdesign.co.uk"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
+}
