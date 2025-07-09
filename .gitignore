@@ -48,3 +48,5 @@ wp-config.php
 #/wp-content/themes
 .DS_Store
 includes/admin/users/views/.DS_Store
+includes/.DS_Store
+includes/admin/.DS_Store
