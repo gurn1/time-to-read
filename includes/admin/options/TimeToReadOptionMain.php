@@ -31,12 +31,15 @@ if( ! class_exists('TimeToReadOptionMain') ) {
     public static $menu_title = 'Time to Read';
 
     /**
-     * Setting name
+     * Declare option sections
      * 
      * @since 1.0.0
      * @return array
      */
-    public static $settings_name = ['time_to_read_settings_main'];
+    public static $settings_name = [
+      'settings_general' => 'General',
+      'settings_style' => 'Styles'
+    ];
 
     /**
      * Register fields
@@ -45,6 +48,34 @@ if( ! class_exists('TimeToReadOptionMain') ) {
      * @return string
      */
     protected function register_fields($settings_name) {
+      $render_field_path = '\lc\timetoread\includes\admin\options\TimeToReadOptionInputRender';
+
+      /** Test Input */
+      add_settings_field(
+        'test_field_setting',
+        'Test field setting',
+        array('\lc\timetoread\includes\admin\options\TimeToReadOptionInputRender', 'render_colorpicker_field'),
+        self::$menu_slug . '_settings_general',
+        ttr_generate_admin_settings_field_path('settings_general'),
+        array(
+          'id' => 'settings_general',
+          'placeholder' => 'Testing placeholder'
+        ) 
+      );
+
+      /** Test Input */
+      add_settings_field(
+        'test_field_setting',
+        'Test field setting',
+        array('\lc\timetoread\includes\admin\options\TimeToReadOptionInputRender', 'render_colorpicker_field'),
+        self::$menu_slug . '_settings_style',
+        ttr_generate_admin_settings_field_path('settings_style'),
+        'time_to_read_settings_style_section',
+        array(
+          'id' => 'settings_general',
+          'placeholder' => 'Testing placeholder'
+        ) 
+      );
 
     }
 

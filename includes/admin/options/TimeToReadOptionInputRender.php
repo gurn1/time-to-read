@@ -31,6 +31,21 @@ if( ! class_exists('TimeToReadOptionInputRender') ) {
     private static $options = [];
 
     /**
+     * Allowed html
+     * 
+     * @since 1.0.0
+     */
+    private static $allowed_html = array(
+      'input' => array(
+        'type' => true,
+        'name' => true,
+        'placeholder' => true,
+        'value' => true,
+        'class' => true,
+      ),
+    );
+
+    /**
      * construct
      * 
      * @since 1.0.0
@@ -53,7 +68,10 @@ if( ! class_exists('TimeToReadOptionInputRender') ) {
 
       $name = self::$option_name . '[' . $field_id . ']';
 
-      echo wp_kses_post(sprintf('<input class="regular-text" type="%s" name="%s" placeholder="%s" value="%s">', $field_type, $name, $field_placeholder, $field_value));
+      echo wp_kses(
+        sprintf('<input class="regular-text" type="%s" name="%s" placeholder="%s" value="%s">', $field_type, $name, $field_placeholder, $field_value),
+        self::$allowed_html
+      );
     }
 
     /**
@@ -69,7 +87,10 @@ if( ! class_exists('TimeToReadOptionInputRender') ) {
 
       $name = self::$option_name . '[' . $field_id . ']';
 
-      echo wp_kses_post(sprintf('<textarea name="%s" placeholder="%s" class="large-text">%s</textarea>', $name, $field_placeholder, $field_value));
+      echo wp_kses(
+        sprintf('<textarea name="%s" placeholder="%s" class="large-text">%s</textarea>', $name, $field_placeholder, $field_value),
+        self::$allowed_html
+      );
     }
 
     /**
@@ -78,7 +99,7 @@ if( ! class_exists('TimeToReadOptionInputRender') ) {
      * @since 1.0.0
      * @return string
      */
-    public static function render_color_picker_field($args) {
+    public static function render_colorpicker_field($args) {
       if ( ! wp_script_is('wp-color-picker', 'enqueued') ) {
         wp_enqueue_script('wp-color-picker');
         wp_enqueue_style('wp-color-picker');
@@ -104,7 +125,10 @@ if( ! class_exists('TimeToReadOptionInputRender') ) {
     
       $name = esc_attr(self::$option_name . '[' . $field_id . ']');
 
-      echo wp_kses_post(sprintf('<input class="time-to-read-colorpicker regular-text" type="text" name="%s" value="%s">', $name, $field_value));
+      echo wp_kses(
+        sprintf('<input class="time-to-read-colorpicker regular-text" type="text" name="%s" value="%s">', $name, $field_value),
+        self::$allowed_html
+      );
     }
 
     /**
@@ -113,7 +137,7 @@ if( ! class_exists('TimeToReadOptionInputRender') ) {
      * @since 1.0.0
      * @return string
      */
-    public static function render_date_picker_field($args) {
+    public static function render_datepicker_field($args) {
       if( ! wp_script_is('jquery-ui-datepicker', 'enqueued')) {
         wp_enqueue_script('jquery-ui-datepicker');
       }
@@ -140,7 +164,10 @@ if( ! class_exists('TimeToReadOptionInputRender') ) {
 
       $name = self::$option_name . '[' . $field_id . ']';
 
-      echo wp_kses_post(sprintf('<input class="time-to-read-datepicker regular-text" type="text" name="%s" value="%s">', $name, $field_value));
+      echo wp_kses(
+        sprintf('<input class="time-to-read-datepicker regular-text" type="text" name="%s" value="%s">', $name, $field_value),
+        self::$allowed_html
+      );
     }
 
 
