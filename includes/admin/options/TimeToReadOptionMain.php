@@ -12,23 +12,40 @@ if( ! defined('ABSPATH')) {
 }
 
 if( ! class_exists('TimeToReadOptionMain') ) {
-  class TimeToReadOptionMain {
+  class TimeToReadOptionMain extends TimeToReadAbstractOption {
 
-    
-    
     /**
-     * Render page
+     * Menu slug
      * 
      * @since 1.0.0
+     * @return string
      */
-    public static function render_page() {
-      $template_path = TIMETOREAD_ABSPATH . '/includes/admin/options/views/option-main.php';
+    public static $menu_slug = 'time-to-read-main';
 
-      if( ! file_exists($template_path) ) {
-        trigger_error(sprintf('The file %s, is missing from this plugin installation', $template_path), E_USER_ERROR);
-      }
+    /**
+     * Menu title
+     * 
+     * @since 1.0.0
+     * @return string
+     */
+    public static $menu_title = 'Time to Read';
 
-      include_once($template_path);
+    /**
+     * Setting name
+     * 
+     * @since 1.0.0
+     * @return array
+     */
+    public static $settings_name = ['time_to_read_settings_main'];
+
+    /**
+     * Register fields
+     * 
+     * @since 1.0.0
+     * @return string
+     */
+    protected function register_fields($settings_name) {
+
     }
 
   }

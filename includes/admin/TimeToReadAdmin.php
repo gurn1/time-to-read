@@ -65,14 +65,14 @@ if( ! class_exists('TimeToReadAdmin') ) {
      * @since 1.0.0
      */
     public function hooks() {
-      
+
       /**
-       * Register menu item
+       * Register options pages
        * 
        * @since 1.0.0
        */
-      add_action('admin_menu', array($this, 'add_admin_menus'));
-
+      new \lc\timetoread\includes\admin\options\TimeToReadOptionMain();
+      
       /**
        * Register admin scripts
        * 
@@ -121,29 +121,6 @@ if( ! class_exists('TimeToReadAdmin') ) {
         wp_register_style('timetoread-admin-css', TIMETOREAD_ASSETS_ADMIN_URL . 'css/timetoread-admin.css', array(), '1.0.0');
       }
 
-    }
-
-    /**
-     * Admin menus
-     * 
-     * @since 1.0.0
-     */
-    public function add_admin_menus() {
-
-      /**
-       * Register primary menu page
-       * 
-       * @since 1.0.0
-       * @return string|false
-       */
-      add_management_page( 
-        esc_html__('Time to Read', TIMETOREAD_TEXT_DOMAIN),
-        esc_html__('Time to Read', TIMETOREAD_TEXT_DOMAIN),
-        'manage_options',
-        'time-to-read',
-        array('\lc\timetoread\includes\admin\options\TimeToReadOptionMain', 'render_page'),
-        100
-      );
     }
 
   }
