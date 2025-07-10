@@ -37,12 +37,19 @@ if( ! class_exists('TimeToReadOptionInputRender') ) {
      */
     private static $allowed_html = array(
       'input' => array(
+        'id' => true,
         'type' => true,
         'name' => true,
         'placeholder' => true,
         'value' => true,
         'class' => true,
       ),
+      'textarea' => array(
+        'id' => true,
+        'name' => true,
+        'placeholder' => true,
+        'class' => true
+      )
     );
 
     /**

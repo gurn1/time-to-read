@@ -63,6 +63,20 @@ if( ! class_exists('TimeToReadOptionMain') ) {
         ) 
       );
 
+      /** Test textarea */
+      add_settings_field(
+        'test_field_textarea',
+        'Textarea',
+        array('\lc\timetoread\includes\admin\options\TimeToReadOptionInputRender', 'render_textarea_field'),
+        self::$menu_slug . '_settings_general',
+        ttr_generate_admin_settings_field_path('settings_general'),
+        array(
+          'id' => 'settings_textarea',
+          'placeholder' => 'Testing placeholder'
+        ) 
+      );
+
+
       /** Test Input */
       add_settings_field(
         'test_field_setting',
