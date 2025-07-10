@@ -217,6 +217,13 @@ if( ! class_exists('TimeToReadAbstractMetabox') ) {
       $field_keys = array_keys(static::register_fields());
       $raw_data = isset($_POST[self::$meta_name]) ? $_POST[self::$meta_name] : [];
 
+      if(empty($raw_data)) {
+        return;
+      }
+
+      foreach($raw_data as $data ) {
+        
+      }
       error_log(wp_json_encode($raw_data));
 
       foreach($field_keys as $field) {
