@@ -1,18 +1,18 @@
 <?php
 /**
- * Installation related hooks and actions
+ * Render admin input fields
  * 
  * @version 1.0.0
  */
 
-namespace lc\timetoread\includes\admin\options;
+namespace lc\timetoread\includes\admin\fields;
 
 if( ! defined('ABSPATH')) {
   exit; // Exit if accessed directly
 }
 
-if( ! class_exists('TimeToReadOptionInputRender') ) {
-  class TimeToReadOptionInputRender {
+if( ! class_exists('TimeToReadfieldsRender') ) {
+  class TimeToReadfieldsRender {
 
     /**
      * Get the options table name
@@ -21,6 +21,22 @@ if( ! class_exists('TimeToReadOptionInputRender') ) {
      * @return string
      */
     public static $option_name = 'time_to_read_options';
+
+    /**
+     * Get the post meta name
+     * 
+     * @since 1.0.0
+     * @return string
+     */
+    public static $meta_name = 'time_to_read_meta';
+
+    /**
+     * Field name
+     * 
+     * @since 1.0.0
+     * @return string
+     */
+    public static $field_name = '';
 
     /**
      * Declare options variable
@@ -43,6 +59,22 @@ if( ! class_exists('TimeToReadOptionInputRender') ) {
         'value' => true,
         'class' => true,
       ),
+      'textarea' => array(
+        'name' => true,
+        'placeholder' => true,
+        'class' =>true
+      ),
+      'label' => array(
+        'for' => true,
+        'class' =>true
+      ),
+      'select' => array(
+        'name' => true,
+        'class' =>true
+      ),
+      'option' => array(
+        'value' => true
+      )
     );
 
     /**
@@ -50,8 +82,20 @@ if( ! class_exists('TimeToReadOptionInputRender') ) {
      * 
      * @since 1.0.0
      */
-    public function __construct() {
-      self::$options = get_option(self::$option_name);
+    public function __construct($type = 'option') {
+      if($type === 'post') {
+        global $post;
+
+        if(!$post) {
+          return;
+        }
+
+        self::$options = get_post_meta($post->ID, self::$meta_name, true);
+        self::$field_name = self::$meta_name;
+      } else {
+        self::$options = get_option(self::$option_name);
+        self::$field_name = self::$option_name;
+      } 
     }
 
     /**
@@ -66,12 +110,82 @@ if( ! class_exists('TimeToReadOptionInputRender') ) {
       $field_placeholder = isset($args['placeholder']) ? esc_attr($args['placeholder']) : '';
       $field_value = isset(self::$options[$field_id]) ? esc_attr(self::$options[$field_id]) : '';
 
-      $name = self::$option_name . '[' . $field_id . ']';
+      $name = self::$field_name . '[' . $field_id . ']';
 
       echo wp_kses(
         sprintf('<input class="regular-text" type="%s" name="%s" placeholder="%s" value="%s">', $field_type, $name, $field_placeholder, $field_value),
         self::$allowed_html
       );
+    }
+
+    /**
+     * Render checkbox field
+     * 
+     * @since 1.0.0
+     * @return void
+     */
+    public static function render_checkbox_field($args) {
+      $field_id = isset($args['id']) ? esc_attr($args['id']) : '';
+      $field_label = isset($args['label']) ? esc_html($args['label']) : '';
+      $checked = !empty(self::$options[$field_id]) ? 'checked' : '';
+      
+      $name = self::$field_name . '[' . $field_id . ']';
+
+      echo wp_kses(
+        sprintf('<label><input type="checkbox" name="%s" value="1" %s> %s</label>', $name, $checked, $field_label),
+        self::$allowed_html
+      );
+    }
+
+    /**
+     * Render radio field
+     * 
+     * @since 1.0.0
+     * @return void
+     */
+    public static function render_radio_field($args) {
+      $field_id = isset($args['id']) ? esc_attr($args['id']) : '';
+      $choices = isset($args['choices']) && is_array($args['choices']) ? $args['choices'] : [];
+      $selected = isset(self::$options[$field_id]) ? esc_attr(self::$options[$field_id]) : '';
+      
+      $name = self::$field_name . '[' . $field_id . ']';
+
+      foreach ($choices as $value => $label) {
+        $checked = checked($selected, $value, false);
+
+        echo wp_kses(
+          sprintf('<label><input type="radio" name="%s" value="%s" %s> %s</label><br>', $name, esc_attr($value), $checked, esc_html($label)),
+          self::$allowed_html
+        );
+      }
+    }
+
+    /**
+     * Render select dropdown field
+     * 
+     * @since 1.0.0
+     * @return void
+     */
+    public static function render_select_field($args) {
+      $field_id = isset($args['id']) ? esc_attr($args['id']) : '';
+      $choices = isset($args['choices']) && is_array($args['choices']) ? $args['choices'] : [];
+      $selected = isset(self::$options[$field_id]) ? esc_attr(self::$options[$field_id]) : '';
+      
+      $name = self::$field_name . '[' . $field_id . ']';
+
+      echo wp_kses( 
+        sprintf('<select name="%s" class="regular-text">', esc_attr($name)), 
+        self::$allowed_html
+      );
+
+      foreach ($choices as $value => $label) {
+        echo wp_kses(
+          sprintf('<option value="%s"%s>%s</option>', esc_attr($value), selected($selected, $value, false), esc_html($label)),
+          self::$allowed_html
+        );
+      }
+
+      echo '</select>';
     }
 
     /**
@@ -85,7 +199,7 @@ if( ! class_exists('TimeToReadOptionInputRender') ) {
       $field_placeholder = isset($args['placeholder']) ? esc_attr($args['placeholder']) : '';
       $field_value = isset(self::$options[$field_id]) ? esc_attr(self::$options[$field_id]) : '';
 
-      $name = self::$option_name . '[' . $field_id . ']';
+      $name = self::$field_name . '[' . $field_id . ']';
 
       echo wp_kses(
         sprintf('<textarea name="%s" placeholder="%s" class="large-text">%s</textarea>', $name, $field_placeholder, $field_value),
@@ -123,7 +237,7 @@ if( ! class_exists('TimeToReadOptionInputRender') ) {
       $field_id = isset($args['id']) ? esc_attr($args['id']) : '';
       $field_value = isset(self::$options[$field_id]) ? esc_attr(self::$options[$field_id]) : '';
     
-      $name = esc_attr(self::$option_name . '[' . $field_id . ']');
+      $name = self::$field_name . '[' . $field_id . ']';
 
       echo wp_kses(
         sprintf('<input class="time-to-read-colorpicker regular-text" type="text" name="%s" value="%s">', $name, $field_value),
@@ -162,7 +276,7 @@ if( ! class_exists('TimeToReadOptionInputRender') ) {
       $field_id = isset($args['id']) ? esc_attr($args['id']) : '';
       $field_value = isset(self::$options[$field_id]) ? esc_attr(self::$options[$field_id]) : '';
 
-      $name = self::$option_name . '[' . $field_id . ']';
+      $name = self::$field_name . '[' . $field_id . ']';
 
       echo wp_kses(
         sprintf('<input class="time-to-read-datepicker regular-text" type="text" name="%s" value="%s">', $name, $field_value),

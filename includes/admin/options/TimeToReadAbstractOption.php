@@ -52,7 +52,7 @@ if( ! class_exists('TimeToReadAbstractOption') ) {
      * @since 1.0.0
      */
     public function __construct() {
-      self::$options_name = \lc\timetoread\includes\admin\options\TimeToReadOptionInputRender::$option_name;
+      self::$options_name = \lc\timetoread\includes\admin\fields\TimeToReadfieldsRender::$option_name;
 
       add_action('admin_menu', array($this, 'add_admin_menu'));
       add_action('admin_init', array($this, 'register_settings'));
@@ -112,16 +112,16 @@ if( ! class_exists('TimeToReadAbstractOption') ) {
       $template_path = TIMETOREAD_ABSPATH . '/includes/admin/options/views/option-' . static::$menu_slug . '.php';
 
       // throw error if view template isn't found
-      if( ! file_exists($template_path) ) {
+      if(!file_exists($template_path)) {
         trigger_error(sprintf('The file %s, is missing from this plugin installation', $template_path), E_USER_ERROR);
       }
 
       // Throw error here if sections array is string or empty
-      if ( empty(static::$settings_name) || ! is_array(static::$settings_name) ) {
+      if (empty(static::$settings_name) || !is_array(static::$settings_name)) {
         throw new \RuntimeException(__METHOD__ . ': $settings_name must be a non-empty array.');
       }
 
-      new \lc\timetoread\includes\admin\options\TimeToReadOptionInputRender();
+      new \lc\timetoread\includes\admin\fields\TimeToReadfieldsRender();
 
       $settings_section_path = static::$menu_slug;
       $tabs = static::$settings_name;

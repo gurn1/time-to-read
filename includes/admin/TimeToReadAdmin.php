@@ -51,8 +51,6 @@ if( ! class_exists('TimeToReadAdmin') ) {
      * @since 1.0.0
      */
     public function includes() {
-      // Options
-      //\rti\engine\includes\admin\options\RTIEngineOptions::instance();
       // Metaboxes
       //\rti\engine\includes\admin\metaboxes\RTIEngineMetaBoxesLessons::instance();
       // Tables
@@ -72,6 +70,13 @@ if( ! class_exists('TimeToReadAdmin') ) {
        * @since 1.0.0
        */
       new \lc\timetoread\includes\admin\options\TimeToReadOptionMain();
+
+      /**
+       * Register metaboxes
+       * 
+       * @since 1.0.0
+       */
+      new \lc\timetoread\includes\admin\metaboxes\TimeToReadMetaBoxSidebar();
       
       /**
        * Register admin scripts
