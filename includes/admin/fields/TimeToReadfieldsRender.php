@@ -222,7 +222,7 @@ if( ! class_exists('TimeToReadfieldsRender') ) {
       }
 
       // Register a dummy script handle to attach inline script
-      wp_register_script('time-to-read-colorpicker-init', '', [], '', true);
+      wp_register_script('time-to-read-colorpicker-init', '', [], '1.0.0', true);
 
       // Add the inline script once
       if ( ! wp_script_is('time-to-read-colorpicker-init', 'done') ) {
@@ -259,7 +259,7 @@ if( ! class_exists('TimeToReadfieldsRender') ) {
       }
 
       // Register a custom init script (empty, just to attach inline script)
-      wp_register_script('time-to-read-datepicker-init', '', [], '', true);
+      wp_register_script('time-to-read-datepicker-init', '', [], '1.0.0', true);
       
       // Only add the inline script once
       if ( ! wp_script_is('time-to-read-datepicker-init', 'done') ) {

@@ -106,12 +106,12 @@ if( ! class_exists('TimeToReadAbstractMetabox') ) {
      */
     public function add_meta_box() { 
       add_meta_box(
-        esc_html__(static::$ID, TIMETOREAD_TEXT_DOMAIN),
-        esc_html__(static::$title, TIMETOREAD_TEXT_DOMAIN),
+        esc_html(static::$ID),
+        esc_html(static::$title),
         array($this, 'render_output'),
-        static::$screen,
-        static::$context,
-        static::$priority  
+        esc_html(static::$screen),
+        esc_html(static::$context),
+        esc_html(static::$priority)  
       );
 
       if( !wp_style_is('timetoread-admin-css', 'enqueued') ) {
@@ -140,11 +140,12 @@ if( ! class_exists('TimeToReadAbstractMetabox') ) {
         $type = isset($field['type']) ? esc_attr($field['type']) : 'text';
         $method = null;
         
-        echo "
-          <div class='ttr-input-wpr ".static::$context."'>
-            <label>$label</label>
+        echo sprintf(
+          "<div class='ttr-input-wpr %s'> 
+            <label>%s</label>
             <div class='ttr-field'>
-        ";
+          ", 
+          esc_attr(static::$context), esc_html($label)); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
         switch($type) {
           case 'text' : 
@@ -202,9 +203,10 @@ if( ! class_exists('TimeToReadAbstractMetabox') ) {
       }
 
       // Check nonce
-      if(!isset($_POST[static::$nonce_name]) || !wp_verify_nonce($_POST[static::$nonce_name], static::$nonce_action)) {
+      // phpcs:ignore
+      if(!isset($_POST[static::$nonce_name]) || !wp_verify_nonce(wp_unslash($_POST[static::$nonce_name]), static::$nonce_action)) {
         if(WP_DEBUG) {
-          error_log(sprintf('Nonce verification failed for %s, on post #%s', static::$nonce_name, $post_id));
+          error_log(sprintf('Nonce verification failed for %s, on post #%s', static::$nonce_name, $post_id)); // phpcs:ignore
         }
         return;
       }
@@ -219,7 +221,8 @@ if( ! class_exists('TimeToReadAbstractMetabox') ) {
         return;
       }
 
-      $raw_data = isset($_POST[self::$meta_name]) ? $_POST[self::$meta_name] : [];
+      // phpcs:ignore
+      $raw_data = isset($_POST[self::$meta_name]) ? esc_html(wp_unslash($_POST[self::$meta_name])) : [];
       $sanitized_data = [];
 
       if(empty($raw_data)) {
@@ -228,8 +231,6 @@ if( ! class_exists('TimeToReadAbstractMetabox') ) {
 
       foreach(static::register_fields() as $key => $field) {
         $raw_value = isset($raw_data[$key]) ? $raw_data[$key] : null;
-
-        error_log($raw_value);
       
         switch ($field['type']) {
           case 'text':
@@ -274,7 +275,7 @@ if( ! class_exists('TimeToReadAbstractMetabox') ) {
       global $post;
 
       if(!$post) {
-        error_log(__METHOD__ . ': $post object not found.');
+        error_log(__METHOD__ . ': $post object not found.'); // phpcs:ignore
         return;
       }
 
@@ -282,7 +283,7 @@ if( ! class_exists('TimeToReadAbstractMetabox') ) {
 
       // throw error if view template isn't found
       if(!file_exists($template_path)) {
-        trigger_error(sprintf('The file %s, is missing from this plugin installation', $template_path), E_USER_ERROR);
+        trigger_error(sprintf('The file %s, is missing from this plugin installation', esc_url($template_path)), E_USER_ERROR); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_trigger_error
       }
 
       new \lc\timetoread\includes\admin\fields\TimeToReadfieldsRender('post');

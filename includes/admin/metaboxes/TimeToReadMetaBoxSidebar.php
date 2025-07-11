@@ -65,15 +65,15 @@ if( ! class_exists('TimeToReadMetaBoxSidebar') ) {
       return array(
         'disable_post' => array(
           'type' => 'checkbox',
-          'label' => esc_html__('Turn off', TIMETOREAD_TEXT_DOMAIN)
+          'label' => esc_html__('Turn off', 'time-to-read')
         ),
         'test' => array(
           'type' => 'text',
-          'label' => esc_html__('Field', TIMETOREAD_TEXT_DOMAIN)
+          'label' => esc_html__('Field', 'time-to-read')
         ),
         'select_field' => array(
           'type' => 'select',
-          'label' => esc_html__('Select', TIMETOREAD_TEXT_DOMAIN),
+          'label' => esc_html__('Select', 'time-to-read'),
           'choices' => array(
             'one' => 'One',
             'two' => 'Two',
@@ -83,15 +83,15 @@ if( ! class_exists('TimeToReadMetaBoxSidebar') ) {
         ),
         'date' => array(
           'type' => 'datepicker',
-          'label' => esc_html__('Date', TIMETOREAD_TEXT_DOMAIN)
+          'label' => esc_html__('Date', 'time-to-read')
         ),
         'color' => array(
           'type' => 'colorpicker',
-          'label' => esc_html__('Colour Picker', TIMETOREAD_TEXT_DOMAIN)
+          'label' => esc_html__('Colour Picker', 'time-to-read')
         ),
         'radio' => array(
           'type' => 'radio',
-          'label' => esc_html__('Radio', TIMETOREAD_TEXT_DOMAIN),
+          'label' => esc_html__('Radio', 'time-to-read'),
           'choices' => array(
             'one' => 'One',
             'two' => 'Two',

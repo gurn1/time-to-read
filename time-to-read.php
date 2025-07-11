@@ -6,7 +6,7 @@
  * Author: Luke Clifton
  * Author URI: https://www.lscwebdesign.co.uk
  * Text Domain: time-to-read
- * Domain Path: /i18n/languages/
+ * Domain Path: /i18n/
  * License:         GPL-2.0-or-later
  * License URI:     https://www.gnu.org/licenses/gpl-2.0.html
  * Requires at least: 5.6

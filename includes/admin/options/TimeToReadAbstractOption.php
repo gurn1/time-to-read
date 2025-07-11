@@ -81,7 +81,11 @@ if( ! class_exists('TimeToReadAbstractOption') ) {
      */
     public function register_settings() {
       foreach (static::$settings_name as $setting_slug => $setting_name) {
-        register_setting(static::$menu_slug . '_' . $setting_slug, static::$options_name);
+        register_setting(
+          static::$menu_slug . '_' . $setting_slug, 
+          static::$options_name,
+          [ 'sanitize_callback' => [ static::class, 'sanitize_options' ] ]
+        );
 
         add_settings_section(
           ttr_generate_admin_settings_field_path($setting_slug),
@@ -100,6 +104,15 @@ if( ! class_exists('TimeToReadAbstractOption') ) {
      * @since 1.0.0
      */
     abstract protected function register_fields($setting_name);
+
+    /**
+     * Sanitize fields
+     * 
+     * @since 1.0.0
+     */
+    public static function sanitize_options($input) {
+      return array_map('sanitize_text_field', (array) $input);
+    }
     
     /**
      * Render page
@@ -113,7 +126,7 @@ if( ! class_exists('TimeToReadAbstractOption') ) {
 
       // throw error if view template isn't found
       if(!file_exists($template_path)) {
-        trigger_error(sprintf('The file %s, is missing from this plugin installation', $template_path), E_USER_ERROR);
+        trigger_error(sprintf('The file %s, is missing from this plugin installation', esc_url($template_path)), E_USER_ERROR); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_trigger_error
       }
 
       // Throw error here if sections array is string or empty
@@ -125,8 +138,8 @@ if( ! class_exists('TimeToReadAbstractOption') ) {
 
       $settings_section_path = static::$menu_slug;
       $tabs = static::$settings_name;
-      $active_tab = isset($_GET['tab']) ? sanitize_text_field($_GET['tab']) : key(static::$settings_name);
-      $current_page = isset($_GET['page']) ? sanitize_text_field($_GET['page']) : '';
+      $active_tab = isset($_GET['tab']) ? sanitize_text_field(wp_unslash($_GET['tab'])) : key(static::$settings_name); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+      $current_page = isset($_GET['page']) ? sanitize_text_field(wp_unslash($_GET['page'])) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
       $url_path = admin_url() . $pagenow . '?page=' . $current_page; 
 
       include_once($template_path);
