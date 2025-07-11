@@ -1,9 +1,9 @@
-=== Time To Read ===
+=== Time to Read ===
 Contributors: Luke Clifton
 Tags: reading time, estimated reading time, post read time, content timer, readability
-Requires at least: 5.0
-Tested up to: 6.5
-Requires PHP: 7.4
+Requires at least: 5.6
+Tested up to: 6.8
+Requires PHP: 8.0
 Stable tag: 1.0.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -25,7 +25,6 @@ Whether you're running a blog, news site, or documentation hub, Time To Read hel
 * Shortcode support: `[time_to_read]`
 * Optional automatic display before or after content
 * Customize average reading speed (words per minute)
-* Fully translatable
 * No bloat – fast and simple
 
 == Installation ==
@@ -37,15 +36,4 @@ Whether you're running a blog, news site, or documentation hub, Time To Read hel
 
 == Frequently Asked Questions ==
 
-= Can I change the average reading speed? =
-
-Yes, you can set a custom words-per-minute (WPM) value in the plugin settings.
-
-= Can I hide the reading time on certain post types? =
-
-Yes, you can enable or disable it per post type if that option is included.
-
 == Screenshots ==
-
-1. Example of reading time displayed above a blog post.
-2. Optional shortcode placemen

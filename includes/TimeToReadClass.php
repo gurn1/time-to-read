@@ -58,7 +58,10 @@ if( ! class_exists('TimeToReadClass') ) {
      * 
      * @since 1.0.0
      */
-    public function includes() {  
+    public function includes() {
+      // Instantiate admin class
+      \lc\timetoread\includes\admin\TimeToReadAdmin::instance();
+
       include_once TIMETOREAD_ABSPATH . 'helpers/general-helpers.php';
     }
 

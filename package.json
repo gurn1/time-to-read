@@ -7,7 +7,7 @@
     "watch": "npx webpack --config webpack.config.js",
     "watch-admin": "npx webpack --config webpack-admin.config.js"
   },
-  "author": "Two Hours Sleep",
+  "author": "Luke Clifton",
   "license": "GPLv3",
   "devDependencies": {
     "autoprefixer": "^10.4.12",

@@ -1,0 +1,9 @@
+/**
+ * primary css file for time to read
+ */
+
+
+/** Meta fields **/
+.ttr-input-wpr.side .ttr-field .regular-text {
+  width: 100%;
+}
