@@ -15,7 +15,7 @@
       <?php foreach($tabs as $tab_slug => $tab_name) : ?>
         <?php $is_active = ($active_tab === $tab_slug) ? 'active' : ''; ?>
 
-        <a href="<?php echo esc_url($url_path) . '&tab=' . esc_attr($tab_slug); ?>" class="nav-tab <?php echo esc_attr($is_active); ?>"><?php echo esc_html_e($tab_name, TIMETOREAD_TEXT_DOMAIN); ?></a>
+        <a href="<?php echo esc_url($url_path) . '&tab=' . esc_attr($tab_slug); ?>" class="nav-tab <?php echo esc_attr($is_active); ?>"><?php echo esc_html_e($tab_name, 'time-to-read'); ?></a>
       <?php endforeach; ?>
     </nav>
   <?php endif; ?>

@@ -53,7 +53,7 @@ if( ! class_exists('TimeToReadOptionMain') ) {
       /** Test Input */
       add_settings_field(
         'test_field_setting',
-        'Test field setting',
+        __('Test field setting', 'time-to-read'),
         array($render_field_path, 'render_colorpicker_field'),
         self::$menu_slug . '_settings_general',
         ttr_generate_admin_settings_field_path('settings_general'),
@@ -66,7 +66,7 @@ if( ! class_exists('TimeToReadOptionMain') ) {
       /** Test Input */
       add_settings_field(
         'test_field_setting',
-        'Test field setting',
+        __('Test field setting', 'time-to-read'),
         array($render_field_path, 'render_colorpicker_field'),
         self::$menu_slug . '_settings_style',
         ttr_generate_admin_settings_field_path('settings_style'),

@@ -58,6 +58,7 @@ if( ! class_exists('TimeToReadfieldsRender') ) {
         'placeholder' => true,
         'value' => true,
         'class' => true,
+        'checked' => true
       ),
       'textarea' => array(
         'name' => true,
@@ -73,7 +74,8 @@ if( ! class_exists('TimeToReadfieldsRender') ) {
         'class' =>true
       ),
       'option' => array(
-        'value' => true
+        'value' => true,
+        'selected' => true
       )
     );
 
@@ -127,12 +129,12 @@ if( ! class_exists('TimeToReadfieldsRender') ) {
     public static function render_checkbox_field($args) {
       $field_id = isset($args['id']) ? esc_attr($args['id']) : '';
       $field_label = isset($args['label']) ? esc_html($args['label']) : '';
-      $checked = !empty(self::$options[$field_id]) ? 'checked' : '';
+      $checked = !empty(self::$options[$field_id]) ? self::$options[$field_id] : 0;
       
       $name = self::$field_name . '[' . $field_id . ']';
 
       echo wp_kses(
-        sprintf('<label><input type="checkbox" name="%s" value="1" %s> %s</label>', $name, $checked, $field_label),
+        sprintf('<label><input type="checkbox" name="%s" value="1" %s> %s</label>', $name, checked($checked, 1, false), $field_label),
         self::$allowed_html
       );
     }

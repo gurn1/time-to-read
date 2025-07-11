@@ -113,6 +113,10 @@ if( ! class_exists('TimeToReadAbstractMetabox') ) {
         static::$context,
         static::$priority  
       );
+
+      if( !wp_style_is('timetoread-admin-css', 'enqueued') ) {
+        wp_enqueue_style('timetoread-admin-css');
+      }
     }
 
     /**
@@ -137,9 +141,9 @@ if( ! class_exists('TimeToReadAbstractMetabox') ) {
         $method = null;
         
         echo "
-          <div class='input-wpr'>
+          <div class='ttr-input-wpr ".static::$context."'>
             <label>$label</label>
-            <div class='field'>
+            <div class='ttr-field'>
         ";
 
         switch($type) {
@@ -174,7 +178,8 @@ if( ! class_exists('TimeToReadAbstractMetabox') ) {
             'id' => $field_id,
             'name' => isset($field['name']) ? esc_attr($field['name']) : '',
             'placeholder' => isset($field['placeholder']) ? esc_attr($field['placeholder']) : '',
-            'class' => isset($field['class']) ? esc_attr($field['class']) : ''
+            'class' => isset($field['class']) ? esc_attr($field['class']) : '',
+            'choices' => isset($field['choices']) ? $field['choices'] : ''
           ]);
         } else {
           echo "<p class='error'>No field types found.</p>";
@@ -214,25 +219,50 @@ if( ! class_exists('TimeToReadAbstractMetabox') ) {
         return;
       }
 
-      $field_keys = array_keys(static::register_fields());
       $raw_data = isset($_POST[self::$meta_name]) ? $_POST[self::$meta_name] : [];
+      $sanitized_data = [];
 
       if(empty($raw_data)) {
         return;
       }
 
-      foreach($raw_data as $data ) {
-        
-      }
-      error_log(wp_json_encode($raw_data));
+      foreach(static::register_fields() as $key => $field) {
+        $raw_value = isset($raw_data[$key]) ? $raw_data[$key] : null;
 
-      foreach($field_keys as $field) {
-        if(isset($_POST[$field]) ) {
-          update_post_meta($post_id, self::$meta_name, sanitize_text_field($_POST[$field]));
+        error_log($raw_value);
+      
+        switch ($field['type']) {
+          case 'text':
+          case 'radio':
+          case 'select':
+          case 'date':
+              $sanitized_data[$key] = sanitize_text_field($raw_value);
+              break;
+          case 'textarea':
+              $sanitized_data[$key] = sanitize_textarea_field($raw_value);
+              break;
+          case 'email':
+              $sanitized_data[$key] = sanitize_email($raw_value);
+              break;
+          case 'url':
+              $sanitized_data[$key] = esc_url_raw($raw_value);
+              break;
+          case 'number':
+              $sanitized_data[$key] = intval($raw_value);
+              break;
+          case 'checkbox':
+              $sanitized_data[$key] = isset($raw_value) && $raw_value ? 1 : 0;
+              break;
+          case 'color':
+              $sanitized_data[$key] = sanitize_hex_color($raw_value);
+              break;
+          default:
+              $sanitized_data[$key] = sanitize_text_field($raw_value); // Fallback
+              break;
         }
       }
 
-      //update_post_meta($post_id, self::$meta_name, )
+      update_post_meta($post_id, self::$meta_name, $sanitized_data);
     }
 
     /**

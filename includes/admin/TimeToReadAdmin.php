@@ -51,10 +51,6 @@ if( ! class_exists('TimeToReadAdmin') ) {
      * @since 1.0.0
      */
     public function includes() {
-      // Metaboxes
-      //\rti\engine\includes\admin\metaboxes\RTIEngineMetaBoxesLessons::instance();
-      // Tables
-      //\rti\engine\includes\admin\tables\RTIEngineTables::instance();
     }
 
     /**
@@ -101,17 +97,17 @@ if( ! class_exists('TimeToReadAdmin') ) {
      */
     public function enqueue_scripts() {
       // Main admin js script
-      if( ! wp_script_is('timetoread-admin', 'enqueued') ) {
-        wp_enqueue_script('timetoread-admin', TIMETOREAD_ASSETS_ADMIN_URL . 'js/rti-engine-admin.js', array(), '1.0.0', true);
-      }
+      // if( ! wp_script_is('timetoread-admin', 'enqueued') ) {
+      //   wp_enqueue_script('timetoread-admin', TIMETOREAD_ASSETS_ADMIN_URL . 'js/timetoread-admin.js', array(), '1.0.0', true);
+      // }
 
-      wp_localize_script(
-        'timetoread-admin',
-        'timetoreadObject',
-        array(
-          'ajax_url' => admin_url( 'admin-ajax.php', 'relative' ),
-        )
-      );
+      // wp_localize_script(
+      //   'timetoread-admin',
+      //   'timetoreadObject',
+      //   array(
+      //     'ajax_url' => admin_url( 'admin-ajax.php', 'relative' ),
+      //   )
+      // );
 
     }
 

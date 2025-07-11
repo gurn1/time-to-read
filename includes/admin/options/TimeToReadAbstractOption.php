@@ -65,8 +65,8 @@ if( ! class_exists('TimeToReadAbstractOption') ) {
      */
     public function add_admin_menu() {
       add_management_page( 
-        esc_html__(static::$menu_title, TIMETOREAD_TEXT_DOMAIN),
-        esc_html__(static::$menu_title, TIMETOREAD_TEXT_DOMAIN),
+        esc_html(static::$menu_title),
+        esc_html(static::$menu_title),
         'manage_options',
         static::$menu_slug,
         array($this, 'render_page'),
@@ -85,7 +85,7 @@ if( ! class_exists('TimeToReadAbstractOption') ) {
 
         add_settings_section(
           ttr_generate_admin_settings_field_path($setting_slug),
-          __($setting_name, TIMETOREAD_TEXT_DOMAIN),
+          esc_html($setting_name),
           '__return_false',
           static::$menu_slug . '_' . $setting_slug
         );

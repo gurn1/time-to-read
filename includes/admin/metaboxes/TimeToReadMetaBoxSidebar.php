@@ -69,7 +69,35 @@ if( ! class_exists('TimeToReadMetaBoxSidebar') ) {
         ),
         'test' => array(
           'type' => 'text',
-          'label' => esc_html__('Test field', TIMETOREAD_TEXT_DOMAIN)
+          'label' => esc_html__('Field', TIMETOREAD_TEXT_DOMAIN)
+        ),
+        'select_field' => array(
+          'type' => 'select',
+          'label' => esc_html__('Select', TIMETOREAD_TEXT_DOMAIN),
+          'choices' => array(
+            'one' => 'One',
+            'two' => 'Two',
+            'three' => 'Three',
+            'four' => 'Four'
+          )
+        ),
+        'date' => array(
+          'type' => 'datepicker',
+          'label' => esc_html__('Date', TIMETOREAD_TEXT_DOMAIN)
+        ),
+        'color' => array(
+          'type' => 'colorpicker',
+          'label' => esc_html__('Colour Picker', TIMETOREAD_TEXT_DOMAIN)
+        ),
+        'radio' => array(
+          'type' => 'radio',
+          'label' => esc_html__('Radio', TIMETOREAD_TEXT_DOMAIN),
+          'choices' => array(
+            'one' => 'One',
+            'two' => 'Two',
+            'three' => 'Three',
+            'four' => 'Four'
+          )
         )
       );
     }
