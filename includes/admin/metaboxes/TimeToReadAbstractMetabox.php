@@ -106,12 +106,12 @@ if( ! class_exists('TimeToReadAbstractMetabox') ) {
      */
     public function add_meta_box() { 
       add_meta_box(
-        esc_html(static::$ID),
+        static::$ID,
         esc_html(static::$title),
         array($this, 'render_output'),
-        esc_html(static::$screen),
-        esc_html(static::$context),
-        esc_html(static::$priority)  
+        static::$screen,
+        static::$context,
+        static::$priority 
       );
 
       if( !wp_style_is('timetoread-admin-css', 'enqueued') ) {

@@ -8,6 +8,10 @@
   width: 100%;
 }
 
+.ttr-input-wpr.side .ttr-field select.regular-text {
+  width: calc(100% - 32px);
+}
+
 /** Options page **/
 .ttr-option-wpr {}
 
