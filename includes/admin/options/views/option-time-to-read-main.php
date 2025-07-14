@@ -7,7 +7,7 @@
 
 ?>
 
-<div class="wrap">
+<div class="wrap ttr-option-wpr">
   <h1><?php echo esc_html(get_admin_page_title()); ?></h1>
 
   <?php if(count($tabs) > 1) : ?>
@@ -21,8 +21,15 @@
   <?php endif; ?>
 
   <form method="post" action="options.php">
-    <?php settings_fields($settings_section_path . '_' . $active_tab); ?>
-    <?php do_settings_sections($settings_section_path . '_' . $active_tab ); ?>
+    <?php if(is_array($tabs) && !empty($tabs)) : ?>
+      <?php foreach($tabs as $slug => $name ) : ?>
+        <div class="tab-content <?php echo $active_tab === $slug ? 'active' : ''; ?>">
+          <?php settings_fields($settings_section_path . '_' . $slug); ?>
+          <?php do_settings_sections($settings_section_path . '_' . $slug ); ?>
+        </div>
+      <?php endforeach; ?>
+    <?php endif; ?>
+
     <?php submit_button(); ?>
   </form>
 </div>

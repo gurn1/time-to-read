@@ -52,13 +52,25 @@ if( ! class_exists('TimeToReadOptionMain') ) {
 
       /** Test Input */
       add_settings_field(
-        'test_field_setting',
+        'test_field_general',
         __('Test field setting', 'time-to-read'),
         array($render_field_path, 'render_colorpicker_field'),
         self::$menu_slug . '_settings_general',
         ttr_generate_admin_settings_field_path('settings_general'),
         array(
           'id' => 'settings_general',
+          'placeholder' => 'Testing placeholder'
+        ) 
+      );
+
+      add_settings_field(
+        'text_field_general_text',
+        __('Text field general', 'time-to-read'),
+        array($render_field_path, 'render_input_field'),
+        self::$menu_slug . '_settings_general',
+        ttr_generate_admin_settings_field_path('settings_general'),
+        array(
+          'id' => 'settings_general_text',
           'placeholder' => 'Testing placeholder'
         ) 
       );
@@ -70,9 +82,20 @@ if( ! class_exists('TimeToReadOptionMain') ) {
         array($render_field_path, 'render_colorpicker_field'),
         self::$menu_slug . '_settings_style',
         ttr_generate_admin_settings_field_path('settings_style'),
-        'time_to_read_settings_style_section',
         array(
-          'id' => 'settings_general',
+          'id' => 'settings_color',
+          'placeholder' => 'Testing placeholder'
+        ) 
+      );
+
+      add_settings_field(
+        'text_field_setting',
+        __('Text field setting', 'time-to-read'),
+        array($render_field_path, 'render_input_field'),
+        self::$menu_slug . '_settings_style',
+        ttr_generate_admin_settings_field_path('settings_style'),
+        array(
+          'id' => 'settings_text',
           'placeholder' => 'Testing placeholder'
         ) 
       );

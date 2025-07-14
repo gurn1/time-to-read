@@ -142,6 +142,10 @@ if( ! class_exists('TimeToReadAbstractOption') ) {
       $current_page = isset($_GET['page']) ? sanitize_text_field(wp_unslash($_GET['page'])) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
       $url_path = admin_url() . $pagenow . '?page=' . $current_page; 
 
+      if( !wp_style_is('timetoread-admin-css', 'enqueued') ) {
+        wp_enqueue_style('timetoread-admin-css');
+      }
+
       include_once($template_path);
     }
 
