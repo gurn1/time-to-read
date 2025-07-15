@@ -84,7 +84,7 @@ if( ! class_exists('TimeToReadAbstractOption') ) {
         register_setting(
           static::$menu_slug . '_' . $setting_slug, 
           static::$options_name,
-          [ 'sanitize_callback' => [ static::class, 'sanitize_options' ] ]
+          // [ 'sanitize_callback' => [ static::class, 'sanitize_options' ] ]
         );
 
         add_settings_section(
@@ -111,6 +111,7 @@ if( ! class_exists('TimeToReadAbstractOption') ) {
      * @since 1.0.0
      */
     public static function sanitize_options($input) {
+      return $input;
       return array_map('sanitize_text_field', (array) $input);
     }
     

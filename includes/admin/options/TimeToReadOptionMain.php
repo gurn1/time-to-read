@@ -75,6 +75,17 @@ if( ! class_exists('TimeToReadOptionMain') ) {
         ) 
       );
 
+      add_settings_field(
+        'posttype_general_picker',
+        __('Post type picker', 'render_input_field'),
+        array($render_field_path, 'render_posttype_field'),
+        self::$menu_slug . '_settings_general',
+        ttr_generate_admin_settings_field_path('settings_general'),
+        array(
+          'id' => 'settings_general_posttype',
+        )
+      );
+
       /** Test Input */
       add_settings_field(
         'test_field_setting',

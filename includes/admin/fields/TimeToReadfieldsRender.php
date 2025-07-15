@@ -76,6 +76,9 @@ if( ! class_exists('TimeToReadfieldsRender') ) {
       'option' => array(
         'value' => true,
         'selected' => true
+      ),
+      'div' => array(
+        'class' => true
       )
     );
 
@@ -286,6 +289,38 @@ if( ! class_exists('TimeToReadfieldsRender') ) {
       );
     }
 
+    /**
+     * Post type selector
+     * 
+     * @since 1.0.0
+     * @return string
+     */
+    public static function render_posttype_field($args) {
+      $field_id = isset($args['id']) ? esc_attr($args['id']) : '';
+      $field_value = isset(self::$options[$field_id]) ? self::$options[$field_id] : '';
+      
+      $post_types = get_post_types([
+        'public' => true,
+        '_builtin' => true
+      ], 'objects');
+
+      // Exclusions 
+      unset($post_types['attachment' ]);
+
+
+      if( !empty($post_types)) {
+        foreach($post_types as $post_type ) {
+          $name = self::$field_name . '[' . $field_id . ']['.$post_type->name.']';
+          $checked = !empty($field_value[$post_type->name]) ? $field_value[$post_type->name] : 0;
+
+          echo wp_kses(
+            sprintf('<div><label><input type="checkbox" name="%s" value="1" %s> %s</label></div>', $name, checked($checked, 1, false), $post_type->label),
+            self::$allowed_html
+          );
+        }
+      } 
+       
+    }
 
   }
 }
