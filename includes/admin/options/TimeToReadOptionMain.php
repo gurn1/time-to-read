@@ -48,7 +48,7 @@ if( ! class_exists('TimeToReadOptionMain') ) {
      * @return string
      */
     protected function register_fields($settings_name) {
-      $render_field_path = '\lc\timetoread\includes\admin\fields\TimeToReadfieldsRender';
+      $render_field_path = '\lc\timetoread\includes\admin\fields\TimeToReadFieldsRender';
 
       /** Test Input */
       add_settings_field(

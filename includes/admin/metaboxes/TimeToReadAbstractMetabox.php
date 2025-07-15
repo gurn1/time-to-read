@@ -86,7 +86,7 @@ if( ! class_exists('TimeToReadAbstractMetabox') ) {
      * @since 1.0.0
      */
     public function __construct() {
-      self::$meta_name = \lc\timetoread\includes\admin\fields\TimeToReadfieldsRender::$meta_name;
+      self::$meta_name = TIMETOREAD_META_NAME;
 
       // Generate nonce identifiers
       static::$nonce_action = static::$ID . '_action';
@@ -133,7 +133,7 @@ if( ! class_exists('TimeToReadAbstractMetabox') ) {
      * @return string
      */
     protected static function render_fields() {
-      $output =  new \lc\timetoread\includes\admin\fields\TimeToReadfieldsRender('post');
+      $output =  new \lc\timetoread\includes\admin\fields\TimeToReadFieldsRender('post');
 
       foreach(static::register_fields() as $field_id => $field) {
         $label = isset($field['label']) ? esc_html($field['label']) : '';
@@ -286,7 +286,7 @@ if( ! class_exists('TimeToReadAbstractMetabox') ) {
         trigger_error(sprintf('The file %s, is missing from this plugin installation', esc_url($template_path)), E_USER_ERROR); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_trigger_error
       }
 
-      new \lc\timetoread\includes\admin\fields\TimeToReadfieldsRender('post');
+      new \lc\timetoread\includes\admin\fields\TimeToReadFieldsRender('post');
 
       // set the nonce
       wp_nonce_field(static::$nonce_action, static::$nonce_name);

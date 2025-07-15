@@ -87,7 +87,10 @@ if( ! class_exists('TimeToReadClass') ) {
       $this->define( 'TIMETOREAD_IMAGES', TIMETOREAD_URL . 'images/');
       // templates folder
       $this->define( 'TIMETOREAD_TEMPLATES',  TIMETOREAD_ABSPATH . 'templates/');
-      
+      // Options data name
+      $this->define( 'TIMETOREAD_OPTION_NAME', 'time_to_read_options');
+      // Meta data name
+      $this->define( 'TIMETOREAD_META_NAME', 'time_to_read_postmeta');
     }
 
     /**

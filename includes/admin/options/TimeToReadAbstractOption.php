@@ -52,7 +52,7 @@ if( ! class_exists('TimeToReadAbstractOption') ) {
      * @since 1.0.0
      */
     public function __construct() {
-      self::$options_name = \lc\timetoread\includes\admin\fields\TimeToReadfieldsRender::$option_name;
+      self::$options_name = TIMETOREAD_OPTION_NAME;
 
       add_action('admin_menu', array($this, 'add_admin_menu'));
       add_action('admin_init', array($this, 'register_settings'));
@@ -84,7 +84,7 @@ if( ! class_exists('TimeToReadAbstractOption') ) {
         register_setting(
           static::$menu_slug . '_' . $setting_slug, 
           static::$options_name,
-          // [ 'sanitize_callback' => [ static::class, 'sanitize_options' ] ]
+          //[ 'sanitize_callback' => [ static::class, 'sanitize_options' ] ]
         );
 
         add_settings_section(
@@ -111,7 +111,6 @@ if( ! class_exists('TimeToReadAbstractOption') ) {
      * @since 1.0.0
      */
     public static function sanitize_options($input) {
-      return $input;
       return array_map('sanitize_text_field', (array) $input);
     }
     
@@ -135,7 +134,7 @@ if( ! class_exists('TimeToReadAbstractOption') ) {
         throw new \RuntimeException(__METHOD__ . ': $settings_name must be a non-empty array.');
       }
 
-      new \lc\timetoread\includes\admin\fields\TimeToReadfieldsRender();
+      new \lc\timetoread\includes\admin\fields\TimeToReadFieldsRender();
 
       $settings_section_path = static::$menu_slug;
       $tabs = static::$settings_name;
