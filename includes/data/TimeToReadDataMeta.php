@@ -108,7 +108,7 @@ if( ! class_exists('TimeToReadDataMeta') ) {
           $output[$key] = self::$defaults[$key];
         }
       }
-      var_dump($output);
+      
       return $output;
     }
 

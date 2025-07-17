@@ -222,7 +222,7 @@ if( ! class_exists('TimeToReadAbstractMetabox') ) {
       }
 
       // phpcs:ignore
-      $raw_data = isset($_POST[self::$meta_name]) ? esc_html(wp_unslash($_POST[self::$meta_name])) : [];
+      $raw_data = isset($_POST[self::$meta_name]) ? wp_unslash($_POST[self::$meta_name]) : [];
       $sanitized_data = [];
 
       if(empty($raw_data)) {
