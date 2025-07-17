@@ -51,7 +51,7 @@ if( ! class_exists('TimeToReadDataDefaults') ) {
       return [
         'settings_general' => '#8224e3',
         'settings_general_text' => 'Testing default',
-        'settings_general_posttype' => [
+        'posttype_selector' => [
           'post' => 1,
           'page' => 1,
           'product' => 1

@@ -105,18 +105,27 @@ if( ! class_exists('TimeToReadAbstractMetabox') ) {
      * @since 1.0.0
      */
     public function add_meta_box() { 
-      add_meta_box(
-        static::$ID,
-        esc_html(static::$title),
-        array($this, 'render_output'),
-        static::$screen,
-        static::$context,
-        static::$priority 
-      );
+      global $post;
 
-      if( !wp_style_is('timetoread-admin-css', 'enqueued') ) {
-        wp_enqueue_style('timetoread-admin-css');
+      $post_type = property_exists($post, 'post_type') ? $post->post_type : '';
+      $options = \lc\timetoread\includes\data\TimeToReadDataOptions::instance();
+      $post_type_checker = isset($options['posttype_selector']) ? $options['posttype_selector'] : [];
+
+      if( is_array($post_type_checker) && array_key_exists($post_type, $post_type_checker) && $post_type_checker[$post_type] === '1' ) {
+        add_meta_box(
+          static::$ID,
+          esc_html(static::$title),
+          array($this, 'render_output'),
+          static::$screen,
+          static::$context,
+          static::$priority 
+        );
+
+        if( !wp_style_is('timetoread-admin-css', 'enqueued') ) {
+          wp_enqueue_style('timetoread-admin-css');
+        }
       }
+
     }
 
     /**
