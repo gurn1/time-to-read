@@ -37,7 +37,7 @@ if( ! class_exists('TimeToReadDataDefaults') ) {
      * @since 1.0.0
      * @return array
      */
-    public static function instance($type = 'option'): array {
+    public static function instance($type = 'option') {
       return (new self($type))->get_defaults();
     }
 
@@ -49,6 +49,7 @@ if( ! class_exists('TimeToReadDataDefaults') ) {
      */
     protected function options() {
       return [
+        'settings_general' => '#8224e3',
         'settings_general_text' => 'Testing default',
         'settings_general_posttype' => [
           'post' => 1,

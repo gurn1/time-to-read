@@ -84,7 +84,7 @@ if( ! class_exists('TimeToReadAbstractOption') ) {
         register_setting(
           static::$menu_slug . '_' . $setting_slug, 
           static::$options_name,
-          //[ 'sanitize_callback' => [ static::class, 'sanitize_options' ] ]
+          [ 'sanitize_callback' => [ static::class, 'sanitize_options' ] ]
         );
 
         add_settings_section(
@@ -110,9 +110,56 @@ if( ! class_exists('TimeToReadAbstractOption') ) {
      * 
      * @since 1.0.0
      */
-    public static function sanitize_options($input) {
-      return array_map('sanitize_text_field', (array) $input);
+    public static function sanitize_options($input, $saved = null) {
+      // Load saved data only once, during the root call
+      if ($saved === null) {
+          $saved = get_option(TIMETOREAD_OPTION_NAME, []);
+      }
+
+      $sanitized = [];
+
+      // Sanitize provided input recursively
+      foreach ($input as $key => $value) {
+          if (is_array($value)) {
+              $sanitized[$key] = self::sanitize_options($value, $saved[$key] ?? []);
+          } else {
+              $sanitized[$key] = sanitize_text_field($value);
+          }
+      }
+
+      // Now check for any keys in saved data that are missing in input
+      foreach ($saved as $key => $value) {
+          if (!array_key_exists($key, $sanitized)) {
+              if (is_array($value)) {
+                  // Recursively fill in missing nested arrays
+                  $sanitized[$key] = self::fill_missing_keys([], $value);
+              } else {
+                  // If missing, assume it's an unchecked checkbox → set to 0
+                  $sanitized[$key] = 0;
+              }
+          }
+      }
+
+      return $sanitized;
+     
     }
+
+    protected static function fill_missing_keys(array $input, array $reference): array {
+      $result = [];
+
+      foreach ($reference as $key => $value) {
+          if (is_array($value)) {
+              $result[$key] = isset($input[$key]) && is_array($input[$key])
+                  ? self::fill_missing_keys($input[$key], $value)
+                  : self::fill_missing_keys([], $value);
+          } else {
+              $result[$key] = isset($input[$key]) ? sanitize_text_field($input[$key]) : 0;
+          }
+      }
+
+      return $result;
+    }
+
     
     /**
      * Render page

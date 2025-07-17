@@ -87,10 +87,10 @@ if( ! class_exists('TimeToReadFieldsRender') ) {
           return;
         }
 
-        self::$options = get_post_meta($post->ID, TIMETOREAD_META_NAME, true);
+        self::$options = \lc\timetoread\includes\data\TimeToReadDataMeta::instance($post->ID);
         self::$field_name = TIMETOREAD_META_NAME;
       } else {
-        self::$options = get_option(TIMETOREAD_OPTION_NAME);
+        self::$options = \lc\timetoread\includes\data\TimeToReadDataOptions::instance();
         self::$field_name = TIMETOREAD_OPTION_NAME;
       } 
 
@@ -304,8 +304,7 @@ if( ! class_exists('TimeToReadFieldsRender') ) {
       if( !empty($post_types)) {
         foreach($post_types as $post_type ) {
           $name = self::$field_name . '[' . $field_id . ']['.$post_type->name.']';
-          $default_value = isset($field_default[$post_type->name]) ? $field_default[$post_type->name] : 0;
-          $checked = !empty($field_value[$post_type->name]) ? $field_value[$post_type->name] : $default_value;
+          $checked = !empty($field_value[$post_type->name]) ? $field_value[$post_type->name] : 0;
 
           echo wp_kses(
             sprintf('<div><label><input type="checkbox" name="%s" value="1" %s> %s</label></div>', $name, checked($checked, 1, false), $post_type->label),
