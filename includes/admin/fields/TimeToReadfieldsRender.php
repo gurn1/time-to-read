@@ -118,7 +118,7 @@ if( ! class_exists('TimeToReadFieldsRender') ) {
       );
 
       if( $field_description ) {
-        echo sprintf('<p class="description">%s</p>', $field_description);
+        echo sprintf('<p class="description">%s</p>', esc_html($field_description));
       }
     }
 
@@ -131,6 +131,7 @@ if( ! class_exists('TimeToReadFieldsRender') ) {
     public static function render_checkbox_field($args) {
       $field_id = isset($args['id']) ? esc_attr($args['id']) : '';
       $field_label = isset($args['label']) ? esc_html($args['label']) : '';
+      $field_description = isset($args['description']) ? $args['description'] : '';
       $checked = !empty(self::$options[$field_id]) ? self::$options[$field_id] : 0;
       
       $name = self::$field_name . '[' . $field_id . ']';
@@ -139,6 +140,10 @@ if( ! class_exists('TimeToReadFieldsRender') ) {
         sprintf('<label><input type="checkbox" name="%s" value="1" %s> %s</label>', $name, checked($checked, 1, false), $field_label),
         self::$allowed_html
       );
+
+      if( $field_description ) {
+        echo sprintf('<p class="description">%s</p>', esc_html($field_description));
+      }
     }
 
     /**
@@ -149,6 +154,7 @@ if( ! class_exists('TimeToReadFieldsRender') ) {
      */
     public static function render_radio_field($args) {
       $field_id = isset($args['id']) ? esc_attr($args['id']) : '';
+      $field_description = isset($args['description']) ? $args['description'] : '';
       $choices = isset($args['choices']) && is_array($args['choices']) ? $args['choices'] : [];
       $selected = isset(self::$options[$field_id]) ? esc_attr(self::$options[$field_id]) : '';
       
@@ -162,6 +168,10 @@ if( ! class_exists('TimeToReadFieldsRender') ) {
           self::$allowed_html
         );
       }
+
+      if( $field_description ) {
+        echo sprintf('<p class="description">%s</p>', esc_html($field_description));
+      }
     }
 
     /**
@@ -172,6 +182,7 @@ if( ! class_exists('TimeToReadFieldsRender') ) {
      */
     public static function render_select_field($args) {
       $field_id = isset($args['id']) ? esc_attr($args['id']) : '';
+      $field_description = isset($args['description']) ? $args['description'] : '';
       $choices = isset($args['choices']) && is_array($args['choices']) ? $args['choices'] : [];
       $selected = isset(self::$options[$field_id]) ? esc_attr(self::$options[$field_id]) : '';
       
@@ -190,6 +201,10 @@ if( ! class_exists('TimeToReadFieldsRender') ) {
       }
 
       echo '</select>';
+
+      if( $field_description ) {
+        echo sprintf('<p class="description">%s</p>', esc_html($field_description));
+      }
     }
 
     /**
@@ -202,6 +217,7 @@ if( ! class_exists('TimeToReadFieldsRender') ) {
       $field_id = isset($args['id']) ? esc_attr($args['id']) : '';
       $field_placeholder = isset($args['placeholder']) ? esc_attr($args['placeholder']) : '';
       $field_value = isset(self::$options[$field_id]) ? esc_attr(self::$options[$field_id]) : '';
+      $field_description = isset($args['description']) ? $args['description'] : '';
 
       $name = self::$field_name . '[' . $field_id . ']';
 
@@ -209,6 +225,10 @@ if( ! class_exists('TimeToReadFieldsRender') ) {
         sprintf('<textarea name="%s" placeholder="%s" class="large-text">%s</textarea>', $name, $field_placeholder, $field_value),
         self::$allowed_html
       );
+
+      if( $field_description ) {
+        echo sprintf('<p class="description">%s</p>', esc_html($field_description));
+      }
     }
 
     /**
@@ -240,6 +260,7 @@ if( ! class_exists('TimeToReadFieldsRender') ) {
 
       $field_id = isset($args['id']) ? esc_attr($args['id']) : '';
       $field_value = isset(self::$options[$field_id]) ? esc_attr(self::$options[$field_id]) : '';
+      $field_description = isset($args['description']) ? $args['description'] : '';
     
       $name = self::$field_name . '[' . $field_id . ']';
 
@@ -247,6 +268,10 @@ if( ! class_exists('TimeToReadFieldsRender') ) {
         sprintf('<input class="time-to-read-colorpicker regular-text" type="text" name="%s" value="%s">', $name, $field_value),
         self::$allowed_html
       );
+
+      if( $field_description ) {
+        echo sprintf('<p class="description">%s</p>', esc_html($field_description));
+      }
     }
 
     /**
@@ -279,6 +304,7 @@ if( ! class_exists('TimeToReadFieldsRender') ) {
 
       $field_id = isset($args['id']) ? esc_attr($args['id']) : '';
       $field_value = isset(self::$options[$field_id]) ? esc_attr(self::$options[$field_id]) : '';
+      $field_description = isset($args['description']) ? $args['description'] : '';
 
       $name = self::$field_name . '[' . $field_id . ']';
 
@@ -286,6 +312,10 @@ if( ! class_exists('TimeToReadFieldsRender') ) {
         sprintf('<input class="time-to-read-datepicker regular-text" type="text" name="%s" value="%s">', $name, $field_value),
         self::$allowed_html
       );
+
+      if( $field_description ) {
+        echo sprintf('<p class="description">%s</p>', esc_html($field_description));
+      }
     }
 
     /**
@@ -298,6 +328,7 @@ if( ! class_exists('TimeToReadFieldsRender') ) {
       $field_id = isset($args['id']) ? esc_attr($args['id']) : '';
       $field_default = isset(self::$defaults[$field_id]) ? self::$defaults[$field_id] : [];
       $field_value = isset(self::$options[$field_id]) ? self::$options[$field_id] : '';
+      $field_description = isset($args['description']) ? $args['description'] : '';
       
       $post_types = get_post_types([
         'public' => true
@@ -315,6 +346,10 @@ if( ! class_exists('TimeToReadFieldsRender') ) {
             sprintf('<div><label><input type="checkbox" name="%s" value="1" %s> %s</label></div>', $name, checked($checked, 1, false), $post_type->label),
             self::$allowed_html
           );
+        }
+
+        if( $field_description ) {
+          echo sprintf('<p class="description">%s</p>', esc_html($field_description));
         }
       } 
        
