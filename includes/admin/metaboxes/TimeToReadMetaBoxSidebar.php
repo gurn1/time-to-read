@@ -28,7 +28,7 @@ if( ! class_exists('TimeToReadMetaBoxSidebar') ) {
      * @since 1.0.0
      * @return string
      */
-    public static $title = 'Time To Read options';
+    public static $title = 'Time to Read';
 
     /**
      * Where to show metabox
@@ -63,41 +63,14 @@ if( ! class_exists('TimeToReadMetaBoxSidebar') ) {
      */
     protected static function register_fields() {
       return array(
-        'disable_post' => array(
+        'disable_automatic_output' => array(
           'type' => 'checkbox',
-          'label' => esc_html__('Turn off', 'time-to-read')
+          'label' => esc_html__('Disbale automatic output', 'time-to-read')
         ),
-        'test' => array(
+        'reading_time_text' => array(
           'type' => 'text',
-          'label' => esc_html__('Field', 'time-to-read')
-        ),
-        'select_field' => array(
-          'type' => 'select',
-          'label' => esc_html__('Select', 'time-to-read'),
-          'choices' => array(
-            'one' => 'One',
-            'two' => 'Two',
-            'three' => 'Three',
-            'four' => 'Four'
-          )
-        ),
-        'date' => array(
-          'type' => 'datepicker',
-          'label' => esc_html__('Date', 'time-to-read')
-        ),
-        'color' => array(
-          'type' => 'colorpicker',
-          'label' => esc_html__('Colour Picker', 'time-to-read')
-        ),
-        'radio' => array(
-          'type' => 'radio',
-          'label' => esc_html__('Radio', 'time-to-read'),
-          'choices' => array(
-            'one' => 'One',
-            'two' => 'Two',
-            'three' => 'Three',
-            'four' => 'Four'
-          )
+          'label' => esc_html__('Text', 'time-to-read'),
+          'description' => esc_html__('Leave this field empty to use default text, set in the settings section.', 'time-to-read')
         )
       );
     }

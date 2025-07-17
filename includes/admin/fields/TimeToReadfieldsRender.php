@@ -108,6 +108,7 @@ if( ! class_exists('TimeToReadFieldsRender') ) {
       $field_type = isset($args['type']) ? esc_attr($args['type']) : 'text';
       $field_placeholder = isset($args['placeholder']) ? esc_attr($args['placeholder']) : '';
       $field_value = isset(self::$options[$field_id]) ? esc_attr(self::$options[$field_id]) : '';
+      $field_description = isset($args['description']) ? $args['description'] : '';
 
       $name = self::$field_name . '[' . $field_id . ']';
 
@@ -115,6 +116,10 @@ if( ! class_exists('TimeToReadFieldsRender') ) {
         sprintf('<input class="regular-text" type="%s" name="%s" placeholder="%s" value="%s">', $field_type, $name, $field_placeholder, $field_value),
         self::$allowed_html
       );
+
+      if( $field_description ) {
+        echo sprintf('<p class="description">%s</p>', $field_description);
+      }
     }
 
     /**

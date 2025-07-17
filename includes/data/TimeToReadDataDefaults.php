@@ -49,13 +49,12 @@ if( ! class_exists('TimeToReadDataDefaults') ) {
      */
     protected function options() {
       return [
-        'settings_general' => '#8224e3',
-        'settings_general_text' => 'Testing default',
         'posttype_selector' => [
           'post' => 1,
           'page' => 1,
           'product' => 1
-        ]
+        ],
+        'reading_time_text' => 'Estimated reading time: '
       ];
     }
 

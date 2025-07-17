@@ -184,13 +184,11 @@ if( ! class_exists('TimeToReadAbstractMetabox') ) {
         }
 
         if(method_exists($output, $method)) {
-          call_user_func([$output, $method], [
-            'id' => $field_id,
-            'name' => isset($field['name']) ? esc_attr($field['name']) : '',
-            'placeholder' => isset($field['placeholder']) ? esc_attr($field['placeholder']) : '',
-            'class' => isset($field['class']) ? esc_attr($field['class']) : '',
-            'choices' => isset($field['choices']) ? $field['choices'] : ''
-          ]);
+          $args = [];
+          $args['id'] = $field_id;
+          $args = array_merge($args, $field);
+
+          call_user_func([$output, $method], $args);
         } else {
           echo "<p class='error'>No field types found.</p>";
         }

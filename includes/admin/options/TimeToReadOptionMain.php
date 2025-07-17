@@ -52,12 +52,23 @@ if( ! class_exists('TimeToReadOptionMain') ) {
 
       add_settings_field(
         'posttype_general_select_posttype',
-        __('Select post type', 'render_input_field'),
+        __('Select post type', 'time-to-read'),
         array($render_field_path, 'render_posttype_field'),
         self::$menu_slug . '_settings_general',
         ttr_generate_admin_settings_field_path('settings_general'),
         array(
           'id' => 'posttype_selector',
+        )
+      );
+
+      add_settings_field(
+        'reading_time_text',
+        __('Reading time text', 'time-to-read'),
+        array($render_field_path, 'render_input_field'),
+        self::$menu_slug . '_settings_general',
+        ttr_generate_admin_settings_field_path('settings_general'),
+        array(
+          'id' => 'reading_time_text'
         )
       );
 
