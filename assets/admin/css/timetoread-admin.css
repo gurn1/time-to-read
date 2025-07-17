@@ -7,3 +7,36 @@
 .ttr-input-wpr.side .ttr-field .regular-text {
   width: 100%;
 }
+
+.ttr-input-wpr.side .ttr-field select.regular-text {
+  width: calc(100% - 32px);
+}
+
+/** Options page **/
+.ttr-option-wpr {}
+
+.ttr-option-wpr .nav-tab-wrapper .nav-tab {
+  transform: translateY(1px);
+}
+
+.ttr-option-wpr .nav-tab-wrapper .nav-tab:not(.active):before {
+  background: #c3c4c7;
+  content: '';
+  height: 1px;
+  position:absolute;
+  left: 0; bottom: 0; right: 0;
+  width: 100%;
+}
+
+.ttr-option-wpr .nav-tab-wrapper .nav-tab.active {
+  background: #f0f0f1;
+  border-bottom: none;
+}
+
+.ttr-option-wpr .tab-content {
+  display: none;
+}
+
+.ttr-option-wpr .tab-content.active {
+  display: block;
+}

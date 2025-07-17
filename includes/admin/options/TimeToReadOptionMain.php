@@ -48,19 +48,28 @@ if( ! class_exists('TimeToReadOptionMain') ) {
      * @return string
      */
     protected function register_fields($settings_name) {
-      $render_field_path = '\lc\timetoread\includes\admin\fields\TimeToReadfieldsRender';
+      $render_field_path = '\lc\timetoread\includes\admin\fields\TimeToReadFieldsRender';
 
-      /** Test Input */
       add_settings_field(
-        'test_field_setting',
-        __('Test field setting', 'time-to-read'),
-        array($render_field_path, 'render_colorpicker_field'),
+        'posttype_general_select_posttype',
+        __('Select post type', 'time-to-read'),
+        array($render_field_path, 'render_posttype_field'),
         self::$menu_slug . '_settings_general',
         ttr_generate_admin_settings_field_path('settings_general'),
         array(
-          'id' => 'settings_general',
-          'placeholder' => 'Testing placeholder'
-        ) 
+          'id' => 'posttype_selector',
+        )
+      );
+
+      add_settings_field(
+        'reading_time_text',
+        __('Reading time text', 'time-to-read'),
+        array($render_field_path, 'render_input_field'),
+        self::$menu_slug . '_settings_general',
+        ttr_generate_admin_settings_field_path('settings_general'),
+        array(
+          'id' => 'reading_time_text'
+        )
       );
 
       /** Test Input */
@@ -70,9 +79,20 @@ if( ! class_exists('TimeToReadOptionMain') ) {
         array($render_field_path, 'render_colorpicker_field'),
         self::$menu_slug . '_settings_style',
         ttr_generate_admin_settings_field_path('settings_style'),
-        'time_to_read_settings_style_section',
         array(
-          'id' => 'settings_general',
+          'id' => 'settings_color',
+          'placeholder' => 'Testing placeholder'
+        ) 
+      );
+
+      add_settings_field(
+        'text_field_setting',
+        __('Text field setting', 'time-to-read'),
+        array($render_field_path, 'render_input_field'),
+        self::$menu_slug . '_settings_style',
+        ttr_generate_admin_settings_field_path('settings_style'),
+        array(
+          'id' => 'settings_text',
           'placeholder' => 'Testing placeholder'
         ) 
       );

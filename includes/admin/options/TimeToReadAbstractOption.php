@@ -52,7 +52,7 @@ if( ! class_exists('TimeToReadAbstractOption') ) {
      * @since 1.0.0
      */
     public function __construct() {
-      self::$options_name = \lc\timetoread\includes\admin\fields\TimeToReadfieldsRender::$option_name;
+      self::$options_name = TIMETOREAD_OPTION_NAME;
 
       add_action('admin_menu', array($this, 'add_admin_menu'));
       add_action('admin_init', array($this, 'register_settings'));
@@ -110,9 +110,56 @@ if( ! class_exists('TimeToReadAbstractOption') ) {
      * 
      * @since 1.0.0
      */
-    public static function sanitize_options($input) {
-      return array_map('sanitize_text_field', (array) $input);
+    public static function sanitize_options($input, $saved = null) {
+      // Load saved data only once, during the root call
+      if ($saved === null) {
+          $saved = get_option(TIMETOREAD_OPTION_NAME, []);
+      }
+
+      $sanitized = [];
+
+      // Sanitize provided input recursively
+      foreach ($input as $key => $value) {
+          if (is_array($value)) {
+              $sanitized[$key] = self::sanitize_options($value, $saved[$key] ?? []);
+          } else {
+              $sanitized[$key] = sanitize_text_field($value);
+          }
+      }
+
+      // Now check for any keys in saved data that are missing in input
+      foreach ($saved as $key => $value) {
+          if (!array_key_exists($key, $sanitized)) {
+              if (is_array($value)) {
+                  // Recursively fill in missing nested arrays
+                  $sanitized[$key] = self::fill_missing_keys([], $value);
+              } else {
+                  // If missing, assume it's an unchecked checkbox → set to 0
+                  $sanitized[$key] = 0;
+              }
+          }
+      }
+
+      return $sanitized;
+     
     }
+
+    protected static function fill_missing_keys(array $input, array $reference): array {
+      $result = [];
+
+      foreach ($reference as $key => $value) {
+          if (is_array($value)) {
+              $result[$key] = isset($input[$key]) && is_array($input[$key])
+                  ? self::fill_missing_keys($input[$key], $value)
+                  : self::fill_missing_keys([], $value);
+          } else {
+              $result[$key] = isset($input[$key]) ? sanitize_text_field($input[$key]) : 0;
+          }
+      }
+
+      return $result;
+    }
+
     
     /**
      * Render page
@@ -134,13 +181,17 @@ if( ! class_exists('TimeToReadAbstractOption') ) {
         throw new \RuntimeException(__METHOD__ . ': $settings_name must be a non-empty array.');
       }
 
-      new \lc\timetoread\includes\admin\fields\TimeToReadfieldsRender();
+      new \lc\timetoread\includes\admin\fields\TimeToReadFieldsRender();
 
       $settings_section_path = static::$menu_slug;
       $tabs = static::$settings_name;
       $active_tab = isset($_GET['tab']) ? sanitize_text_field(wp_unslash($_GET['tab'])) : key(static::$settings_name); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
       $current_page = isset($_GET['page']) ? sanitize_text_field(wp_unslash($_GET['page'])) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
       $url_path = admin_url() . $pagenow . '?page=' . $current_page; 
+
+      if( !wp_style_is('timetoread-admin-css', 'enqueued') ) {
+        wp_enqueue_style('timetoread-admin-css');
+      }
 
       include_once($template_path);
     }

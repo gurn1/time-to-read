@@ -86,7 +86,7 @@ if( ! class_exists('TimeToReadAbstractMetabox') ) {
      * @since 1.0.0
      */
     public function __construct() {
-      self::$meta_name = \lc\timetoread\includes\admin\fields\TimeToReadfieldsRender::$meta_name;
+      self::$meta_name = TIMETOREAD_META_NAME;
 
       // Generate nonce identifiers
       static::$nonce_action = static::$ID . '_action';
@@ -105,18 +105,27 @@ if( ! class_exists('TimeToReadAbstractMetabox') ) {
      * @since 1.0.0
      */
     public function add_meta_box() { 
-      add_meta_box(
-        esc_html(static::$ID),
-        esc_html(static::$title),
-        array($this, 'render_output'),
-        esc_html(static::$screen),
-        esc_html(static::$context),
-        esc_html(static::$priority)  
-      );
+      global $post;
 
-      if( !wp_style_is('timetoread-admin-css', 'enqueued') ) {
-        wp_enqueue_style('timetoread-admin-css');
+      $post_type = property_exists($post, 'post_type') ? $post->post_type : '';
+      $options = \lc\timetoread\includes\data\TimeToReadDataOptions::instance();
+      $post_type_checker = isset($options['posttype_selector']) ? $options['posttype_selector'] : [];
+
+      if( is_array($post_type_checker) && array_key_exists($post_type, $post_type_checker) && $post_type_checker[$post_type] === '1' ) {
+        add_meta_box(
+          static::$ID,
+          esc_html(static::$title),
+          array($this, 'render_output'),
+          static::$screen,
+          static::$context,
+          static::$priority 
+        );
+
+        if( !wp_style_is('timetoread-admin-css', 'enqueued') ) {
+          wp_enqueue_style('timetoread-admin-css');
+        }
       }
+
     }
 
     /**
@@ -133,7 +142,7 @@ if( ! class_exists('TimeToReadAbstractMetabox') ) {
      * @return string
      */
     protected static function render_fields() {
-      $output =  new \lc\timetoread\includes\admin\fields\TimeToReadfieldsRender('post');
+      $output =  new \lc\timetoread\includes\admin\fields\TimeToReadFieldsRender('post');
 
       foreach(static::register_fields() as $field_id => $field) {
         $label = isset($field['label']) ? esc_html($field['label']) : '';
@@ -175,13 +184,11 @@ if( ! class_exists('TimeToReadAbstractMetabox') ) {
         }
 
         if(method_exists($output, $method)) {
-          call_user_func([$output, $method], [
-            'id' => $field_id,
-            'name' => isset($field['name']) ? esc_attr($field['name']) : '',
-            'placeholder' => isset($field['placeholder']) ? esc_attr($field['placeholder']) : '',
-            'class' => isset($field['class']) ? esc_attr($field['class']) : '',
-            'choices' => isset($field['choices']) ? $field['choices'] : ''
-          ]);
+          $args = [];
+          $args['id'] = $field_id;
+          $args = array_merge($args, $field);
+
+          call_user_func([$output, $method], $args);
         } else {
           echo "<p class='error'>No field types found.</p>";
         }
@@ -222,7 +229,7 @@ if( ! class_exists('TimeToReadAbstractMetabox') ) {
       }
 
       // phpcs:ignore
-      $raw_data = isset($_POST[self::$meta_name]) ? esc_html(wp_unslash($_POST[self::$meta_name])) : [];
+      $raw_data = isset($_POST[self::$meta_name]) ? wp_unslash($_POST[self::$meta_name]) : [];
       $sanitized_data = [];
 
       if(empty($raw_data)) {
@@ -286,7 +293,7 @@ if( ! class_exists('TimeToReadAbstractMetabox') ) {
         trigger_error(sprintf('The file %s, is missing from this plugin installation', esc_url($template_path)), E_USER_ERROR); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_trigger_error
       }
 
-      new \lc\timetoread\includes\admin\fields\TimeToReadfieldsRender('post');
+      new \lc\timetoread\includes\admin\fields\TimeToReadFieldsRender('post');
 
       // set the nonce
       wp_nonce_field(static::$nonce_action, static::$nonce_name);
