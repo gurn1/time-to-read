@@ -23,6 +23,14 @@ if( ! class_exists('TimeToReadReder') ) {
     protected static $post_id = 0;
 
     /**
+     * Post type
+     * 
+     * @since 1.0.0
+     * @return string
+     */
+    protected static $post_type = '';
+
+    /**
      * The single instance of the class.
      * 
      * @since 1.0.0
@@ -40,8 +48,11 @@ if( ! class_exists('TimeToReadReder') ) {
 
         self::$post_id = property_exists($post, 'ID') ? $post->ID : 0;
       } else {
+        $post = get_post($post_id);
         self::$post_id = $post_id;
       }
+
+      self::$post_type = property_exists($post, 'post_type') ? $post->post_type : '';
     }
 
     /**
@@ -117,6 +128,11 @@ if( ! class_exists('TimeToReadReder') ) {
     public function render_template($return = false) {
       $settings = $this->get_settings();
       $calculation = $this->get_calculation();
+
+      // check current post type is applicable
+      if( !isset($settings['posttype_selector']) || !is_array($settings['posttype_selector']) || !array_key_exists(self::$post_type, $settings['posttype_selector']) || $settings['posttype_selector'][self::$post_type] === 0  ) {
+        return;
+      }
 
       $template = TIMETOREAD_TEMPLATES . 'front.php';
 
