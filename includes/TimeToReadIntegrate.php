@@ -59,7 +59,7 @@ if( ! class_exists('TimeToReadIntegrate') ) {
      * 
      * @since 1.0.0
      */
-    public function insert_to_the_content() {
+    public function insert_to_the_content($content) {
       $post_id = get_the_ID();
       $settings = \lc\timetoread\includes\data\TimeToReadDataMeta::instance($post_id);
 
@@ -67,7 +67,10 @@ if( ! class_exists('TimeToReadIntegrate') ) {
       if( isset($settings['disable_automatic_output']) && $settings['disable_automatic_output'] === 1 ) {
         return;
       }
-      return \lc\timetoread\includes\TimeToReadRender::instance($post_id)->render_template(true);
+
+      $reading_time_output = \lc\timetoread\includes\TimeToReadRender::instance($post_id)->render_template(true);
+
+      return $reading_time_output . $content;
     }
     
   }

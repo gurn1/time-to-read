@@ -133,7 +133,7 @@ if( ! class_exists('TimeToReadReder') ) {
       if( !isset($settings['posttype_selector']) || !is_array($settings['posttype_selector']) || !array_key_exists(self::$post_type, $settings['posttype_selector']) || $settings['posttype_selector'][self::$post_type] === 0  ) {
         return;
       }
-
+      
       $template = TIMETOREAD_TEMPLATES . 'front.php';
 
       if( !file_exists($template) ) {
