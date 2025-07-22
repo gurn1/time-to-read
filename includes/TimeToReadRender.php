@@ -113,10 +113,36 @@ if( ! class_exists('TimeToReadReder') ) {
       $options = is_array($options) ? $options : [];
       $meta    = is_array($meta) ? $meta : [];
 
+      // reset option defaults if meta empty 
+      if( isset($meta['reading_time_text']) && empty($meta['reading_time_text'] ) ) {
+        $meta['reading_time_text'] = isset($options['reading_time_text']) ? $options['reading_time_text'] : '';
+      }
+
       // Merge with post meta overriding defaults
       $merged = array_merge($options, $meta);
 
       return $merged;
+    }
+
+    /**
+     * Calculation output
+     * 
+     * @since 1.0.0
+     */
+    public function calculation_output() {
+      $raw_calculation = $this->get_calculation();
+      $settings = $this->get_settings();
+      $output = '';
+
+      if($raw_calculation < 1) {
+        $output = __('Less than 1 minute', 'time-to-read');
+      } elseif($raw_calculation === 1) {
+        $output = sprintf( __( '%s Minute', 'time-to-read' ), number_format_i18n( $raw_calculation, 1 ) );
+      } else {
+        $output = sprintf( __( '%s Minutes', 'time-to-read' ), number_format_i18n( $raw_calculation, 1 ) );
+      }
+
+      return $output;
     }
 
     /**
@@ -127,7 +153,8 @@ if( ! class_exists('TimeToReadReder') ) {
      */
     public function render_template($return = false) {
       $settings = $this->get_settings();
-      $calculation = $this->get_calculation();
+      $calculation = $this->calculation_output();
+      $text = isset($settings['reading_time_text']) ? $settings['reading_time_text'] : '';
 
       // check current post type is applicable
       if( !isset($settings['posttype_selector']) || !is_array($settings['posttype_selector']) || !array_key_exists(self::$post_type, $settings['posttype_selector']) || $settings['posttype_selector'][self::$post_type] === 0  ) {

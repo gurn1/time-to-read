@@ -52,6 +52,9 @@ if( ! class_exists('TimeToReadIntegrate') ) {
     public function hooks() {
       // hook reading time
       add_filter('the_content', array($this, 'insert_to_the_content'));
+
+      // create reading time shortcode
+      add_shortcode('time_to_read', array($this, 'shortcode'));
     }
 
     /**
@@ -71,6 +74,23 @@ if( ! class_exists('TimeToReadIntegrate') ) {
       $reading_time_output = \lc\timetoread\includes\TimeToReadRender::instance($post_id)->render_template(true);
 
       return $reading_time_output . $content;
+    }
+
+    /**
+     * Create shortcode
+     * 
+     * @since 1.0.0
+     */
+    public function shortcode($atts = [] ) {
+      $post_id = get_the_ID();
+
+      if( !$post_id ) {
+        return;
+      }
+
+      $atts = shortcode_atts( array(), $atts, 'time_to_read' );
+
+      return \lc\timetoread\includes\TimeToReadRender::instance($post_id)->render_template(true); 
     }
     
   }
