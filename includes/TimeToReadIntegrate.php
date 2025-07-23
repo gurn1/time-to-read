@@ -88,7 +88,8 @@ if( ! class_exists('TimeToReadIntegrate') ) {
         return;
       }
 
-      $atts = shortcode_atts( array(), $atts, 'time_to_read' );
+      $defaults = [];
+      $atts = shortcode_atts( $defaults, $atts, 'time_to_read' );
 
       return \lc\timetoread\includes\TimeToReadRender::instance($post_id)->render_template(true); 
     }
