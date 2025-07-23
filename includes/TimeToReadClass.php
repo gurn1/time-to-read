@@ -62,6 +62,9 @@ if( ! class_exists('TimeToReadClass') ) {
       // Instantiate admin class
       \lc\timetoread\includes\admin\TimeToReadAdmin::instance();
 
+      // Integrate into wp
+      \lc\timetoread\includes\TimeToReadIntegrate::instance();
+
       include_once TIMETOREAD_ABSPATH . 'helpers/general-helpers.php';
     }
 
