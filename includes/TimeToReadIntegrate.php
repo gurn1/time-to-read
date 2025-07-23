@@ -55,6 +55,9 @@ if( ! class_exists('TimeToReadIntegrate') ) {
 
       // create reading time shortcode
       add_shortcode('time_to_read', array($this, 'shortcode'));
+
+      // register blocks
+      add_action('init', array($this, 'register_blocks'));
     }
 
     /**
@@ -92,6 +95,42 @@ if( ! class_exists('TimeToReadIntegrate') ) {
       $atts = shortcode_atts( $defaults, $atts, 'time_to_read' );
 
       return \lc\timetoread\includes\TimeToReadRender::instance($post_id)->render_template(true); 
+    }
+
+    /**
+     * Register blocks
+     * 
+     * @since 1.0.0
+     */
+    public function register_blocks() {
+
+      wp_register_script(
+        'lc-time-to-read-editor-script',
+        TIMETOREAD_URL . 'blocks/reading-time/index.js',
+        array('wp-blocks', 'wp-element', 'wp-editor', 'wp-components'),
+        filemtime(TIMETOREAD_ABSPATH . 'blocks/reading-time/index.js')
+      );
+
+      // Read blocks
+      register_block_type( 
+        TIMETOREAD_ABSPATH . 'blocks/reading-time/block.json', 
+        array( 'render_callback' => array($this, 'reading_time_block'))
+      );
+    }
+
+    /**
+     * Render reading time block
+     * 
+     * @since 1.0.0
+     */
+    public function reading_time_block($attributes, $content) {
+      $post_id = get_the_ID();
+
+      if (!$post_id) {
+        return '';
+      }
+
+      return \lc\timetoread\includes\TimeToReadRender::instance($post_id)->render_template(true);
     }
     
   }
