@@ -43,8 +43,13 @@ if( ! class_exists('TimeToReadReder') ) {
      * @since 1.0.0
      */
     public function __construct($post_id = 0) {
+
       if( $post_id === 0 ) {
         global $post;
+
+        if( $post === null ) {
+          return new \WP_Error('timetoread_render_output', 'No post or post ID found');
+        }
 
         self::$post_id = property_exists($post, 'ID') ? $post->ID : 0;
       } else {
@@ -62,9 +67,9 @@ if( ! class_exists('TimeToReadReder') ) {
      *
      * @since 1.0.0
      */
-    public static function instance() {
+    public static function instance($post_id = 0) {
       if ( is_null( self::$_instance ) ) {
-        self::$_instance = new self();
+        self::$_instance = new self($post_id);
       }
       return self::$_instance;
     }

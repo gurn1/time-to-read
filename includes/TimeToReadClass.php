@@ -65,6 +65,9 @@ if( ! class_exists('TimeToReadClass') ) {
       // Integrate into wp
       \lc\timetoread\includes\TimeToReadIntegrate::instance();
 
+      // Create rest endpoints
+      \lc\timetoread\includes\apis\TimeToReadRest::instance();
+
       include_once TIMETOREAD_ABSPATH . 'helpers/general-helpers.php';
     }
 

@@ -107,7 +107,7 @@ if( ! class_exists('TimeToReadIntegrate') ) {
       wp_register_script(
         'lc-time-to-read-editor-script',
         TIMETOREAD_URL . 'blocks/reading-time/index.js',
-        array('wp-blocks', 'wp-element', 'wp-editor', 'wp-components'),
+        array('wp-blocks', 'wp-element', 'wp-editor', 'wp-data', 'wp-core-data', 'wp-api-fetch'),
         filemtime(TIMETOREAD_ABSPATH . 'blocks/reading-time/index.js')
       );
 
@@ -119,18 +119,35 @@ if( ! class_exists('TimeToReadIntegrate') ) {
     }
 
     /**
-     * Render reading time block
+     * Reading time block
      * 
      * @since 1.0.0
      */
     public function reading_time_block($attributes, $content) {
       $post_id = get_the_ID();
 
-      if (!$post_id) {
-        return '';
+      if(!$post_id) { 
+        return;
       }
 
       return \lc\timetoread\includes\TimeToReadRender::instance($post_id)->render_template(true);
+    }
+
+    /**
+     * Rest api callback
+     * 
+     * @since 1.0.0
+     */
+    public function rest_api_callback_ouput($request) {
+      $post_id = isset($request['id']) ? absint($request['id']) : 0;
+
+      if(!$post_id) {
+        return new \WP_Error('invalid_id', 'Invalid post ID', array('status' => 400));
+      }
+
+      $html = \lc\timetoread\includes\TimeToReadRender::instance($post_id)->render_template(true);
+
+      return new \WP_REST_Response( $html, 200, [ 'Content-Type' => 'text/html' ] );
     }
     
   }
