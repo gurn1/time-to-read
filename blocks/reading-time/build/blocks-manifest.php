@@ -9,7 +9,7 @@ return array(
 		'title' => 'Reading Time',
 		'category' => 'widgets',
 		'icon' => 'smiley',
-		'description' => 'Example block scaffolded with Create Block tool.',
+		'description' => 'Show how long it takes to read this post on average.',
 		'example' => array(
 			
 		),
