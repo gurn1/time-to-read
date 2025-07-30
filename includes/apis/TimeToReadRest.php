@@ -61,9 +61,33 @@ if( ! class_exists('TimeToReadRest') ) {
     public function render_endpoint() {
       register_rest_route('time-to-read/v1', '(?P<id>\d+)', array(
         'methods' => 'GET',
-        'callback' => array( \lc\timetoread\includes\TimeToReadIntegrate::instance(), 'rest_api_callback_ouput' ),
+        'callback' => array( $this, 'render_callback' ),
         'permission_callback' => '__return_true'
       ));
+    }
+
+    /**
+     * Render callback
+     * 
+     * @since 1.0.0
+     */
+    public function render_callback($request) {
+      $post_id = isset($request['id']) ? absint($request['id']) : 0;
+
+      if(!$post_id) {
+        return new \WP_Error('invalid_id', 'Invalid post ID', array('status' => 400));
+      }
+
+      $html = \lc\timetoread\includes\TimeToReadIntegrate::instance()->reading_time_block($post_id);
+
+      if( !$html ) {
+        return new \WP_Error('no_template', 'Template not found', array('status' => 404)); 
+      }
+
+      $allowed_html = wp_kses_allowed_html( 'post' );
+      $safe_html = wp_kses($html, $allowed_html);
+
+      return new \WP_REST_Response( $safe_html, 200, [ 'Content-Type' => 'text/html' ] );
     }
     
   }

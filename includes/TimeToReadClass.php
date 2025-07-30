@@ -97,6 +97,8 @@ if( ! class_exists('TimeToReadClass') ) {
       $this->define( 'TIMETOREAD_OPTION_NAME', 'time_to_read_options');
       // Meta data name
       $this->define( 'TIMETOREAD_META_NAME', 'time_to_read_postmeta');
+      // Define block folder path
+      $this->define( 'TIMETOREAD_BLOCK_PATH', TIMETOREAD_ABSPATH . 'blocks/');
     }
 
     /**
@@ -105,6 +107,13 @@ if( ! class_exists('TimeToReadClass') ) {
      * @since 1.0.0
      */
     public function hooks() {
+
+      /**
+       * Register blocks
+       * 
+       * @since 1.0.0
+       */
+      new \lc\timetoread\includes\blocks\TimeToReadBlockMain();
 
       /**
        * Register frontend scripts
