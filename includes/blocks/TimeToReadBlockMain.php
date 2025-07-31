@@ -15,7 +15,7 @@ if( ! class_exists('TimeToReadBlockMain') ) {
   class TimeToReadBlockMain extends TimeToReadAbstractBlock {
 
     /**
-     * Block name
+     * Set block name
      * 
      * @since 1.0.0
      * @return string
@@ -23,7 +23,7 @@ if( ! class_exists('TimeToReadBlockMain') ) {
     public static $name = 'reading-time';
 
     /**
-     * Callback
+     * Set Callback
      * 
      * @since 1.0.0
      * @return string
@@ -31,12 +31,12 @@ if( ! class_exists('TimeToReadBlockMain') ) {
     public static $callback = array(self::class, 'render_block');
 
     /**
-     * Redner callback block
+     * Render callback block
      * 
      * @since 1.0.0
      */
-    public static function render_block() {
-      return \lc\timetoread\includes\TimeToReadIntegrate::instance()->reading_time_block(true);
+    public static function render_block($attributes, $content) {
+      return \lc\timetoread\includes\TimeToReadIntegrate::instance()->reading_time_block(true, $attributes);
     }
     
   }

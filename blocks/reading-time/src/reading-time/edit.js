@@ -14,8 +14,8 @@ import './editor.scss';
  *
  * @return {Element} Element to render.
  */
-export default function Edit() {
-	const blockProps = useBlockProps();
+export default function Edit(attributes, setAttributes) {
+	const blockProps = useBlockProps({ style: { color: attributes?.textColor } });
 	const [readingTime, setReadingTime] = useState(null);
 	const [isLoading, setIsLoading] = useState(true);
 	const [error, setError] = useState(null);
@@ -25,7 +25,7 @@ export default function Edit() {
 
 	useEffect(() => {
 		if (!postId) return;
-
+console.log('attributes 2', attributes);
 		apiFetch({ path: `/time-to-read/v1/${postId}` })
 			.then((result) => {
 				setReadingTime(result || 'Not available');
@@ -38,12 +38,12 @@ export default function Edit() {
 	}, [postId]);
 
 	return (
-		<div { ...blockProps }>
+      <div { ...blockProps }>
 		{ isLoading && __('Loading reading time…', 'reading-time') }
 		{ error && <span>{ error }</span> }
 		{ !isLoading && !error && (
 			<div dangerouslySetInnerHTML={{ __html: readingTime }} />
 		) }
-	</div>
+	  </div>
 	);
 }

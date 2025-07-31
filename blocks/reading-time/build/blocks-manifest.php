@@ -14,7 +14,20 @@ return array(
 			
 		),
 		'supports' => array(
-			'html' => false
+			'align' => true,
+			'color' => array(
+				'text' => true,
+				'background' => false
+			),
+			'typography' => array(
+				'fontSize' => true
+			)
+		),
+		'attributes' => array(
+			'readingTime' => array(
+				'type' => 'string',
+				'default' => ''
+			)
 		),
 		'textdomain' => 'reading-time',
 		'editorScript' => 'file:./index.js',

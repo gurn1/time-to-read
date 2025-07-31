@@ -7,7 +7,7 @@
 
  ?>
 
- <div class="time-to-read <?php do_action('time_to_read_classes'); ?>">
+ <div class="time-to-read <?php do_action('time_to_read_classes'); ?> <?php echo isset($args['class']) && !empty($args['class']) ? $args['class'] : ''; ?>" <?php echo isset($args['style']) && !empty($args['style']) ? 'style="'. $args['style'] . '"' : ''; ?>>
    <?php do_action('time_to_read_before'); ?>
    <p><?php echo esc_html($text); ?> <?php echo esc_html($calculation); ?></p>
    <?php do_action('time_to_read_after'); ?>

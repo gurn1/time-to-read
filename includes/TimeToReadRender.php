@@ -156,7 +156,7 @@ if( ! class_exists('TimeToReadReder') ) {
      * @since 1.0.0
      * @return string
      */
-    public function render_template($return = false) {
+    public function render_template($return = false, $args = []) {
       $settings = $this->get_settings();
       $calculation = $this->calculation_output();
       $text = isset($settings['reading_time_text']) ? $settings['reading_time_text'] : '';
@@ -171,6 +171,12 @@ if( ! class_exists('TimeToReadReder') ) {
       if( !file_exists($template) ) {
         return;
       }
+
+      $defaults = [
+        'class' => '',
+        'style' => ''
+      ];
+      $args = wp_parse_args( $args, $defaults );
 
       if( $return === true ) {
         ob_start();

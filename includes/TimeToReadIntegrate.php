@@ -98,7 +98,7 @@ if( ! class_exists('TimeToReadIntegrate') ) {
      * 
      * @since 1.0.0
      */
-    public function reading_time_block($post_id = 0) {
+    public function reading_time_block($post_id = 0, $attributes = []) {
       if( $post_id === 0 ) {
         $post_id = get_the_ID();
       }
@@ -107,7 +107,29 @@ if( ! class_exists('TimeToReadIntegrate') ) {
         return;
       }
 
-      return \lc\timetoread\includes\TimeToReadRender::instance($post_id)->render_template(true);
+      $styles = [];
+
+      if ( isset( $attributes['fontSize'] ) ) {
+        $styles[] = 'font-size: ' . esc_attr( $attributes['fontSize'] );
+      }
+
+      if ( isset( $attributes['style']['color']['background'] ) ) {
+        $styles[] = 'background-color: ' . esc_attr( $attributes['style']['color']['background'] );
+      }
+
+      if ( isset( $attributes['textColor'] ) ) {
+        $styles[] = 'color: ' . esc_attr( $attributes['textColor'] );
+      } elseif (isset($attributes['style']['color']['text'])) {
+        $styles[] = 'color: ' . esc_attr( $attributes['style']['color']['text'] );
+      }
+
+      $style_attr = implode( '; ', array_filter( $styles ) );
+
+      $args = [
+        'style' => $style_attr
+      ];
+
+      return \lc\timetoread\includes\TimeToReadRender::instance($post_id)->render_template(true, $args);
     }
     
   }

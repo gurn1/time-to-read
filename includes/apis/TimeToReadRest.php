@@ -78,6 +78,7 @@ if( ! class_exists('TimeToReadRest') ) {
         return new \WP_Error('invalid_id', 'Invalid post ID', array('status' => 400));
       }
 
+
       $html = \lc\timetoread\includes\TimeToReadIntegrate::instance()->reading_time_block($post_id);
 
       if( !$html ) {
