@@ -72,7 +72,7 @@ if( ! class_exists('TimeToReadOptionMain') ) {
         )
       );
 
-      /** Test Input */
+      /** Disable stylesheet */
       add_settings_field(
         'disable_stylesheet',
         __('Disable Time To Read stylesheet', 'time-to-read'),
@@ -81,18 +81,6 @@ if( ! class_exists('TimeToReadOptionMain') ) {
         ttr_generate_admin_settings_field_path('settings_style'),
         array(
           'id' => 'disable_stylesheet'
-        ) 
-      );
-
-      add_settings_field(
-        'text_field_setting',
-        __('Text field setting', 'time-to-read'),
-        array($render_field_path, 'render_input_field'),
-        self::$menu_slug . '_settings_style',
-        ttr_generate_admin_settings_field_path('settings_style'),
-        array(
-          'id' => 'settings_text',
-          'placeholder' => 'Testing placeholder'
         ) 
       );
 

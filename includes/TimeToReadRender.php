@@ -57,7 +57,9 @@ if( ! class_exists('TimeToReadReder') ) {
         self::$post_id = $post_id;
       }
 
-      self::$post_type = property_exists($post, 'post_type') ? $post->post_type : '';
+      if( is_object($post) ) {
+        self::$post_type = property_exists($post, 'post_type') ? $post->post_type : '';
+      }
     }
 
     /**
@@ -142,9 +144,9 @@ if( ! class_exists('TimeToReadReder') ) {
       if($raw_calculation < 1) {
         $output = __('~ 1 min read', 'time-to-read');
       } elseif($raw_calculation === 1) {
-        $output = sprintf( __( '%s min read', 'time-to-read' ), number_format_i18n( $raw_calculation, 1 ) );
+        $output = sprintf( '%s min read', number_format_i18n( $raw_calculation, 1 ) );
       } else {
-        $output = sprintf( __( '%s mins read', 'time-to-read' ), number_format_i18n( $raw_calculation, 1 ) );
+        $output = sprintf( '%s mins read', number_format_i18n( $raw_calculation, 1 ) );
       }
 
       return $output;
