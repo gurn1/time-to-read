@@ -10,7 +10,7 @@ module.exports = {
   plugins: [
     new RemoveEmptyScriptsPlugin(),
     new MiniCssExtractPlugin({
-      filename: "styles.css",
+      filename: "timetoread.css",
       chunkFilename: "[id].css",
       ignoreOrder: false,
     }),

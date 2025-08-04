@@ -245,7 +245,7 @@ function _unsupportedIterableToArray(r, a) {
   \*************************************/
 /***/ (function(module) {
 
-module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"create-block/reading-time","version":"0.1.0","title":"Reading Time","category":"widgets","icon":"smiley","description":"Show how long it takes to read this post on average.","example":{},"supports":{"align":true,"color":{"text":true,"background":false},"typography":{"fontSize":true}},"attributes":{"readingTime":{"type":"string","default":""}},"textdomain":"reading-time","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css"}');
+module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"create-block/reading-time","version":"0.1.0","title":"Reading Time","category":"widgets","icon":"smiley","description":"Show how long it takes to read this post on average.","example":{},"supports":{"align":true,"color":{"text":true,"background":false},"typography":{"fontSize":true}},"attributes":{"readingTime":{"type":"string","default":""},"textColor":{"type":"string"},"customTextColor":{"type":"string"}},"textdomain":"reading-time","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css"}');
 
 /***/ }),
 
@@ -285,21 +285,18 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
 
 
 
-/**
- * The edit function describes the structure of your block in the context of the
- * editor. This represents what the editor will render when the block is used.
- *
- * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-edit-save/#edit
- *
- * @return {Element} Element to render.
- */
+function Edit(_ref) {
+  var attributes = _ref.attributes;
+  var _attributes$style = attributes.style,
+    _attributes$style2 = _attributes$style === void 0 ? {} : _attributes$style,
+    _attributes$style2$co = _attributes$style2.color,
+    _attributes$style2$co2 = _attributes$style2$co === void 0 ? {} : _attributes$style2$co,
+    textColor = _attributes$style2$co2.text,
+    _attributes$style2$ty = _attributes$style2.typography,
+    _attributes$style2$ty2 = _attributes$style2$ty === void 0 ? {} : _attributes$style2$ty,
+    fontSize = _attributes$style2$ty2.fontSize;
 
-function Edit(attributes, setAttributes) {
-  var blockProps = (0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__.useBlockProps)({
-    style: {
-      color: attributes === null || attributes === void 0 ? void 0 : attributes.textColor
-    }
-  });
+  // const blockProps = useBlockProps({ style: { color: attributes?.textColor } });
   var _useState = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_4__.useState)(null),
     _useState2 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__["default"])(_useState, 2),
     readingTime = _useState2[0],
@@ -315,9 +312,14 @@ function Edit(attributes, setAttributes) {
 
   // Get the current post ID
   var postId = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_6__.select)('core/editor').getCurrentPostId();
+  var blockProps = (0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__.useBlockProps)({
+    style: {
+      color: textColor || undefined,
+      fontSize: fontSize || undefined
+    }
+  });
   (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_4__.useEffect)(function () {
     if (!postId) return;
-    console.log('attributes 2', attributes);
     _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_5___default()({
       path: "/time-to-read/v1/".concat(postId)
     }).then(function (result) {

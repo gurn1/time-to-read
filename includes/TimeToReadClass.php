@@ -147,8 +147,11 @@ if( ! class_exists('TimeToReadClass') ) {
      * @since 1.0.0
      */
     public function enqueue_styles() {
+      $options = \lc\timetoread\includes\data\TimeToReadDataOptions::instance();
+      $disable_stylesheet = isset($options['disable_stylesheet']) && sanitize_text_field($options['disable_stylesheet']) === '1' ? true : false; 
+
       // locations frontend css stylesheet
-      if( ! wp_style_is('timetoread-css', 'enqueued') ) {
+      if( ! wp_style_is('timetoread-css', 'enqueued') && $disable_stylesheet !== true ) {
         wp_enqueue_style('timetoread-css', TIMETOREAD_ASSETS_PUBLIC_URL . 'css/timetoread.css', array(), '1.0.0');
       }
 

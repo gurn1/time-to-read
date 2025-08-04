@@ -27,6 +27,12 @@ return array(
 			'readingTime' => array(
 				'type' => 'string',
 				'default' => ''
+			),
+			'textColor' => array(
+				'type' => 'string'
+			),
+			'customTextColor' => array(
+				'type' => 'string'
 			)
 		),
 		'textdomain' => 'reading-time',

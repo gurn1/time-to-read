@@ -22,6 +22,12 @@
     "readingTime": {
       "type": "string",
       "default": ""
+    },
+    "textColor": {
+      "type": "string"
+    },
+    "customTextColor": {
+      "type": "string"
     }
   },
   "textdomain": "reading-time",
