@@ -75,5 +75,29 @@ if( ! class_exists('TimeToReadMetaBoxSidebar') ) {
       );
     }
 
+    /**
+     * check if metabox has been disabled.
+     * 
+     * @since 1.0.0
+     * @return bool
+     */
+    public static function metabox_disabled_check( ) {
+      global $post;
+
+      if( !is_object($post) ) {
+        return;
+      }
+
+      $post_type = property_exists($post, 'post_type') ? $post->post_type : '';
+      $options = \lc\timetoread\includes\data\TimeToReadDataOptions::instance();
+      $post_type_checker = isset($options['posttype_selector']) ? $options['posttype_selector'] : [];
+
+      if( is_array($post_type_checker) && array_key_exists($post_type, $post_type_checker) && $post_type_checker[$post_type] === '1' ) {
+        return true;
+      }
+
+      return false;
+    }
+
   }
 }

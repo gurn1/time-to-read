@@ -8,7 +8,7 @@ return array(
 		'version' => '0.1.0',
 		'title' => 'Reading Time',
 		'category' => 'widgets',
-		'icon' => 'smiley',
+		'icon' => 'clock',
 		'description' => 'Show how long it takes to read this post on average.',
 		'example' => array(
 			

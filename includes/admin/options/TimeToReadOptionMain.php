@@ -52,12 +52,13 @@ if( ! class_exists('TimeToReadOptionMain') ) {
 
       add_settings_field(
         'posttype_general_select_posttype',
-        __('Select post type', 'time-to-read'),
+        __('Show on post types', 'time-to-read'),
         array($render_field_path, 'render_posttype_field'),
         self::$menu_slug . '_settings_general',
         ttr_generate_admin_settings_field_path('settings_general'),
         array(
           'id' => 'posttype_selector',
+          'description' => 'Select which post types time to read should display on.'
         )
       );
 

@@ -105,13 +105,8 @@ if( ! class_exists('TimeToReadAbstractMetabox') ) {
      * @since 1.0.0
      */
     public function add_meta_box() { 
-      global $post;
 
-      $post_type = property_exists($post, 'post_type') ? $post->post_type : '';
-      $options = \lc\timetoread\includes\data\TimeToReadDataOptions::instance();
-      $post_type_checker = isset($options['posttype_selector']) ? $options['posttype_selector'] : [];
-
-      if( is_array($post_type_checker) && array_key_exists($post_type, $post_type_checker) && $post_type_checker[$post_type] === '1' ) {
+      if( static::metabox_disabled_check() !== false ) {
         add_meta_box(
           static::$ID,
           esc_html(static::$title),
@@ -136,6 +131,13 @@ if( ! class_exists('TimeToReadAbstractMetabox') ) {
     abstract protected static function register_fields();
 
     /**
+     * Metabox disable check
+     * 
+     * @since 1.0.0
+     */
+    abstract protected static function metabox_disabled_check();
+
+    /**
      * Register fields
      * 
      * @since 1.0.0
@@ -149,16 +151,14 @@ if( ! class_exists('TimeToReadAbstractMetabox') ) {
         $type = isset($field['type']) ? esc_attr($field['type']) : 'text';
         $method = null;
         
-        echo sprintf(
-          "<div class='ttr-input-wpr %s'> 
-            <label>%s</label>
-            <div class='ttr-field'>
-          ", 
-          esc_attr(static::$context), esc_html($label)); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+        echo sprintf("<div class='ttr-input-wpr %s'>", esc_attr(static::$context)); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+
+        $include_label = false;
 
         switch($type) {
           case 'text' : 
             $method = 'render_input_field';
+            $include_label = true;
             break;
           case 'checkbox' :
             $method ='render_checkbox_field';
@@ -168,20 +168,31 @@ if( ! class_exists('TimeToReadAbstractMetabox') ) {
             break;
           case 'select' : 
             $method = 'render_select_field';
+            $include_label = true;
             break;
           case 'textarea' :
             $method = 'render_textarea_field';
+            $include_label = true;
             break;
           case 'datepicker' :
             $method = 'render_datepicker_field';
+            $include_label = true;
             break;
           case 'colorpicker' :
             $method = 'render_colorpicker_field';
+            $include_label = true;
             break;
           default :
             $method = 'render_input_field';
+            $include_label = true;
             break;
         }
+
+        if( $include_label === true) {
+          echo sprintf("<label>%s</label>", esc_html($label)); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+        }
+
+        echo "<div class='ttr-field'>";
 
         if(method_exists($output, $method)) {
           $args = [];
