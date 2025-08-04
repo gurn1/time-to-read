@@ -140,11 +140,11 @@ if( ! class_exists('TimeToReadReder') ) {
       $output = '';
 
       if($raw_calculation < 1) {
-        $output = __('Less than 1 minute', 'time-to-read');
+        $output = __('~ 1 min read', 'time-to-read');
       } elseif($raw_calculation === 1) {
-        $output = sprintf( __( '%s Minute', 'time-to-read' ), number_format_i18n( $raw_calculation, 1 ) );
+        $output = sprintf( __( '%s min read', 'time-to-read' ), number_format_i18n( $raw_calculation, 1 ) );
       } else {
-        $output = sprintf( __( '%s Minutes', 'time-to-read' ), number_format_i18n( $raw_calculation, 1 ) );
+        $output = sprintf( __( '%s mins read', 'time-to-read' ), number_format_i18n( $raw_calculation, 1 ) );
       }
 
       return $output;

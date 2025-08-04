@@ -74,14 +74,13 @@ if( ! class_exists('TimeToReadOptionMain') ) {
 
       /** Test Input */
       add_settings_field(
-        'test_field_setting',
-        __('Test field setting', 'time-to-read'),
-        array($render_field_path, 'render_colorpicker_field'),
+        'disable_stylesheet',
+        __('Disable Time To Read stylesheet', 'time-to-read'),
+        array($render_field_path, 'render_checkbox_field'),
         self::$menu_slug . '_settings_style',
         ttr_generate_admin_settings_field_path('settings_style'),
         array(
-          'id' => 'settings_color',
-          'placeholder' => 'Testing placeholder'
+          'id' => 'disable_stylesheet'
         ) 
       );
 
