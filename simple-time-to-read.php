@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: Time to Read
+ * Plugin Name: Simple Time to Read
  * Description: Time To Read is a lightweight plugin that adds an estimated reading time to your posts, pages, and custom post types. Improve user experience by giving your readers a quick idea of how long your content will take to read. The reading time is calculated based on the word count of your content and can be easily customized to suit your site’s tone and layout.
  * Version: 1.0.0
  * Author: Luke Clifton
@@ -29,9 +29,9 @@ if( ! defined( 'TIMETOREAD_FILE' ) ) {
 require __DIR__ . '/vendor/autoload.php';
 
 if( ! function_exists('time_to_read')) {
-  function time_to_read() {
+  function simple_time_to_read() {
     return \lc\timetoread\includes\TimeToReadClass::instance();
   }
 
-  time_to_read();
+  simple_time_to_read();
 }

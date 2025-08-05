@@ -1,4 +1,4 @@
-=== Time to Read ===
+=== Simple Time to Read ===
 Contributors: gurn1
 Author: Luke Clifton
 Tags: reading time, estimated reading time, post read time, content timer, readability
