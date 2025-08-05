@@ -51,8 +51,7 @@ if( ! class_exists('TimeToReadDataDefaults') ) {
       return [
         'posttype_selector' => [
           'post' => '1',
-          'page' => '1',
-          'product' => '1'
+          'page' => '0'
         ],
         'reading_time_text' => 'Estimated reading time: '
       ];
