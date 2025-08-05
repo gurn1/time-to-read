@@ -5,14 +5,14 @@
  * Version: 1.0.0
  * Author: Luke Clifton
  * Author URI: https://www.lscwebdesign.co.uk
- * Text Domain: time-to-read
+ * Text Domain: simple-time-to-read
  * Domain Path: /i18n/
  * License:         GPL-2.0-or-later
  * License URI:     https://www.gnu.org/licenses/gpl-2.0.html
  * Requires at least: 5.6
  * Requires PHP: 8.0
  *
- * @package time-to-read
+ * @package simple-time-to-read
  */
 
 defined( 'ABSPATH' ) || exit;
