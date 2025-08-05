@@ -43,8 +43,13 @@ if( ! class_exists('TimeToReadReder') ) {
      * @since 1.0.0
      */
     public function __construct($post_id = 0) {
+
       if( $post_id === 0 ) {
         global $post;
+
+        if( $post === null ) {
+          return new \WP_Error('timetoread_render_output', 'No post or post ID found');
+        }
 
         self::$post_id = property_exists($post, 'ID') ? $post->ID : 0;
       } else {
@@ -52,7 +57,9 @@ if( ! class_exists('TimeToReadReder') ) {
         self::$post_id = $post_id;
       }
 
-      self::$post_type = property_exists($post, 'post_type') ? $post->post_type : '';
+      if( is_object($post) ) {
+        self::$post_type = property_exists($post, 'post_type') ? $post->post_type : '';
+      }
     }
 
     /**
@@ -62,9 +69,9 @@ if( ! class_exists('TimeToReadReder') ) {
      *
      * @since 1.0.0
      */
-    public static function instance() {
+    public static function instance($post_id = 0) {
       if ( is_null( self::$_instance ) ) {
-        self::$_instance = new self();
+        self::$_instance = new self($post_id);
       }
       return self::$_instance;
     }
@@ -135,11 +142,11 @@ if( ! class_exists('TimeToReadReder') ) {
       $output = '';
 
       if($raw_calculation < 1) {
-        $output = __('Less than 1 minute', 'time-to-read');
+        $output = __('~ 1 min read', 'time-to-read');
       } elseif($raw_calculation === 1) {
-        $output = sprintf( __( '%s Minute', 'time-to-read' ), number_format_i18n( $raw_calculation, 1 ) );
+        $output = sprintf( '%s min read', number_format_i18n( $raw_calculation, 1 ) );
       } else {
-        $output = sprintf( __( '%s Minutes', 'time-to-read' ), number_format_i18n( $raw_calculation, 1 ) );
+        $output = sprintf( '%s mins read', number_format_i18n( $raw_calculation, 1 ) );
       }
 
       return $output;
@@ -151,7 +158,7 @@ if( ! class_exists('TimeToReadReder') ) {
      * @since 1.0.0
      * @return string
      */
-    public function render_template($return = false) {
+    public function render_template($return = false, $args = []) {
       $settings = $this->get_settings();
       $calculation = $this->calculation_output();
       $text = isset($settings['reading_time_text']) ? $settings['reading_time_text'] : '';
@@ -166,6 +173,12 @@ if( ! class_exists('TimeToReadReder') ) {
       if( !file_exists($template) ) {
         return;
       }
+
+      $defaults = [
+        'class' => '',
+        'style' => ''
+      ];
+      $args = wp_parse_args( $args, $defaults );
 
       if( $return === true ) {
         ob_start();

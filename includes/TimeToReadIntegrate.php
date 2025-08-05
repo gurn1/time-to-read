@@ -52,7 +52,6 @@ if( ! class_exists('TimeToReadIntegrate') ) {
     public function hooks() {
       // hook reading time
       add_filter('the_content', array($this, 'insert_to_the_content'));
-
       // create reading time shortcode
       add_shortcode('time_to_read', array($this, 'shortcode'));
     }
@@ -92,6 +91,45 @@ if( ! class_exists('TimeToReadIntegrate') ) {
       $atts = shortcode_atts( $defaults, $atts, 'time_to_read' );
 
       return \lc\timetoread\includes\TimeToReadRender::instance($post_id)->render_template(true); 
+    }
+
+    /**
+     * Reading time block
+     * 
+     * @since 1.0.0
+     */
+    public function reading_time_block($post_id = 0, $attributes = []) {
+      if( $post_id === 0 ) {
+        $post_id = get_the_ID();
+      }
+
+      if(!$post_id) { 
+        return;
+      }
+
+      $styles = [];
+
+      if ( isset( $attributes['fontSize'] ) ) {
+        $styles[] = 'font-size: ' . esc_attr( $attributes['fontSize'] );
+      }
+
+      if ( isset( $attributes['style']['color']['background'] ) ) {
+        $styles[] = 'background-color: ' . esc_attr( $attributes['style']['color']['background'] );
+      }
+
+      if ( isset( $attributes['textColor'] ) ) {
+        $styles[] = 'color: ' . esc_attr( $attributes['textColor'] );
+      } elseif (isset($attributes['style']['color']['text'])) {
+        $styles[] = 'color: ' . esc_attr( $attributes['style']['color']['text'] );
+      }
+
+      $style_attr = implode( '; ', array_filter( $styles ) );
+
+      $args = [
+        'style' => $style_attr
+      ];
+
+      return \lc\timetoread\includes\TimeToReadRender::instance($post_id)->render_template(true, $args);
     }
     
   }

@@ -1,0 +1,37 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "create-block/reading-time",
+  "version": "0.1.0",
+  "title": "Reading Time",
+  "category": "widgets",
+  "icon": "clock",
+  "description": "Show how long it takes to read this post on average.",
+  "example": {},
+  "supports": {
+    "align": true,
+    "color": {
+      "text": true,
+      "background": false
+    },
+    "typography": {
+      "fontSize": true
+    }
+  },
+  "attributes": {
+    "readingTime": {
+      "type": "string",
+      "default": ""
+    },
+    "textColor": {
+      "type": "string"
+    },
+    "customTextColor": {
+      "type": "string"
+    }
+  },
+  "textdomain": "reading-time",
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./index.css",
+  "style": "file:./style-index.css"
+}

@@ -65,6 +65,9 @@ if( ! class_exists('TimeToReadClass') ) {
       // Integrate into wp
       \lc\timetoread\includes\TimeToReadIntegrate::instance();
 
+      // Create rest endpoints
+      \lc\timetoread\includes\apis\TimeToReadRest::instance();
+
       include_once TIMETOREAD_ABSPATH . 'helpers/general-helpers.php';
     }
 
@@ -94,6 +97,8 @@ if( ! class_exists('TimeToReadClass') ) {
       $this->define( 'TIMETOREAD_OPTION_NAME', 'time_to_read_options');
       // Meta data name
       $this->define( 'TIMETOREAD_META_NAME', 'time_to_read_postmeta');
+      // Define block folder path
+      $this->define( 'TIMETOREAD_BLOCK_PATH', TIMETOREAD_ABSPATH . 'blocks/');
     }
 
     /**
@@ -102,6 +107,13 @@ if( ! class_exists('TimeToReadClass') ) {
      * @since 1.0.0
      */
     public function hooks() {
+
+      /**
+       * Register blocks
+       * 
+       * @since 1.0.0
+       */
+      new \lc\timetoread\includes\blocks\TimeToReadBlockMain();
 
       /**
        * Register frontend scripts
@@ -135,8 +147,11 @@ if( ! class_exists('TimeToReadClass') ) {
      * @since 1.0.0
      */
     public function enqueue_styles() {
+      $options = \lc\timetoread\includes\data\TimeToReadDataOptions::instance();
+      $disable_stylesheet = isset($options['disable_stylesheet']) && sanitize_text_field($options['disable_stylesheet']) === '1' ? true : false; 
+
       // locations frontend css stylesheet
-      if( ! wp_style_is('timetoread-css', 'enqueued') ) {
+      if( ! wp_style_is('timetoread-css', 'enqueued') && $disable_stylesheet !== true ) {
         wp_enqueue_style('timetoread-css', TIMETOREAD_ASSETS_PUBLIC_URL . 'css/timetoread.css', array(), '1.0.0');
       }
 

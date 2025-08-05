@@ -52,12 +52,13 @@ if( ! class_exists('TimeToReadOptionMain') ) {
 
       add_settings_field(
         'posttype_general_select_posttype',
-        __('Select post type', 'time-to-read'),
+        __('Show on post types', 'time-to-read'),
         array($render_field_path, 'render_posttype_field'),
         self::$menu_slug . '_settings_general',
         ttr_generate_admin_settings_field_path('settings_general'),
         array(
           'id' => 'posttype_selector',
+          'description' => 'Select which post types time to read should display on.'
         )
       );
 
@@ -72,28 +73,15 @@ if( ! class_exists('TimeToReadOptionMain') ) {
         )
       );
 
-      /** Test Input */
+      /** Disable stylesheet */
       add_settings_field(
-        'test_field_setting',
-        __('Test field setting', 'time-to-read'),
-        array($render_field_path, 'render_colorpicker_field'),
+        'disable_stylesheet',
+        __('Disable Time To Read stylesheet', 'time-to-read'),
+        array($render_field_path, 'render_checkbox_field'),
         self::$menu_slug . '_settings_style',
         ttr_generate_admin_settings_field_path('settings_style'),
         array(
-          'id' => 'settings_color',
-          'placeholder' => 'Testing placeholder'
-        ) 
-      );
-
-      add_settings_field(
-        'text_field_setting',
-        __('Text field setting', 'time-to-read'),
-        array($render_field_path, 'render_input_field'),
-        self::$menu_slug . '_settings_style',
-        ttr_generate_admin_settings_field_path('settings_style'),
-        array(
-          'id' => 'settings_text',
-          'placeholder' => 'Testing placeholder'
+          'id' => 'disable_stylesheet'
         ) 
       );
 

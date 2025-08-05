@@ -1,5 +1,5 @@
 {
-  "name": "Time to read",
+  "name": "time-to-read",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -13,7 +13,6 @@
     "autoprefixer": "^10.4.12",
     "css-loader": "^6.7.1",
     "mini-css-extract-plugin": "^2.6.1",
-    "node-sass": "^9.0.0",
     "postcss-loader": "^7.0.1",
     "sass": "^1.55.0",
     "sass-loader": "^13.0.2",
