@@ -94,7 +94,7 @@ if( ! class_exists('TimeToReadAbstractBlock') ) {
       }
 
       if ( function_exists( 'wp_register_block_metadata_collection' ) ) {
-		    wp_register_block_metadata_collection( self::$path . 'build', self::$path . self::$manifest );
+		    wp_register_block_metadata_collection( self::$path . 'build', self::$manifest );
 	    }
 
       foreach ( array_keys( self::manifest_data() ) as $block_type ) {
