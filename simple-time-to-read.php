@@ -28,7 +28,7 @@ if( ! defined( 'TIMETOREAD_FILE' ) ) {
  */
 require __DIR__ . '/vendor/autoload.php';
 
-if( ! function_exists('time_to_read')) {
+if( ! function_exists('simple_time_to_read')) {
   function simple_time_to_read() {
     return \lc\timetoread\includes\TimeToReadClass::instance();
   }
