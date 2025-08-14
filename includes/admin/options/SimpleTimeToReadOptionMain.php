@@ -76,7 +76,7 @@ if( ! class_exists('SimpleTimeToReadOptionMain') ) {
       /** Disable stylesheet */
       add_settings_field(
         'disable_stylesheet',
-        __('Disable Time To Read stylesheet', 'simple-time-to-read-lsc'),
+        __('Disable Simple Time To Read stylesheet', 'simple-time-to-read-lsc'),
         array($render_field_path, 'render_checkbox_field'),
         self::$menu_slug . '_settings_style',
         sttr_generate_admin_settings_field_path('settings_style'),
