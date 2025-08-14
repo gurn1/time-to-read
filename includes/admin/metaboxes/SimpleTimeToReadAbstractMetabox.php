@@ -5,14 +5,14 @@
  * @version 1.0.0
  */
 
-namespace lc\timetoread\includes\admin\metaboxes;
+namespace lc\stimetoreadlsc\includes\admin\metaboxes;
 
 if( ! defined('ABSPATH')) {
   exit; // Exit if accessed directly
 }
 
-if( ! class_exists('TimeToReadAbstractMetabox') ) {
-  abstract class TimeToReadAbstractMetabox {
+if( ! class_exists('SimpleTimeToReadAbstractMetabox') ) {
+  abstract class SimpleTimeToReadAbstractMetabox {
 
     /**
      * ID
@@ -86,7 +86,7 @@ if( ! class_exists('TimeToReadAbstractMetabox') ) {
      * @since 1.0.0
      */
     public function __construct() {
-      self::$meta_name = TIMETOREAD_META_NAME;
+      self::$meta_name = STIMETOREADLSC_META_NAME;
 
       // Generate nonce identifiers
       static::$nonce_action = static::$ID . '_action';
@@ -144,7 +144,7 @@ if( ! class_exists('TimeToReadAbstractMetabox') ) {
      * @return string
      */
     protected static function render_fields() {
-      $output =  new \lc\timetoread\includes\admin\fields\TimeToReadFieldsRender('post');
+      $output =  new \lc\stimetoreadlsc\includes\admin\fields\SimpleTimeToReadFieldsRender('post');
 
       foreach(static::register_fields() as $field_id => $field) {
         $label = isset($field['label']) ? esc_html($field['label']) : '';
@@ -220,9 +220,11 @@ if( ! class_exists('TimeToReadAbstractMetabox') ) {
         return;
       }
 
+      $nonce_post = isset($_POST[static::$nonce_name]) ? wp_unslash( sanitize_text_field($_POST[static::$nonce_name])) : ''; // phpcs:ignore
+
       // Check nonce
       // phpcs:ignore
-      if(!isset($_POST[static::$nonce_name]) || !wp_verify_nonce(wp_unslash($_POST[static::$nonce_name]), static::$nonce_action)) {
+      if(!wp_verify_nonce($nonce_post, static::$nonce_action)) {
         if(WP_DEBUG) {
           error_log(sprintf('Nonce verification failed for %s, on post #%s', static::$nonce_name, $post_id)); // phpcs:ignore
         }
@@ -297,14 +299,14 @@ if( ! class_exists('TimeToReadAbstractMetabox') ) {
         return;
       }
 
-      $template_path = TIMETOREAD_ABSPATH . '/includes/admin/metaboxes/views/metabox-' . static::$ID . '.php';
+      $template_path = STIMETOREADLSC_ABSPATH . '/includes/admin/metaboxes/views/metabox-' . static::$ID . '.php';
 
       // throw error if view template isn't found
       if(!file_exists($template_path)) {
         trigger_error(sprintf('The file %s, is missing from this plugin installation', esc_url($template_path)), E_USER_ERROR); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_trigger_error
       }
 
-      new \lc\timetoread\includes\admin\fields\TimeToReadFieldsRender('post');
+      new \lc\stimetoreadlsc\includes\admin\fields\SimpleTimeToReadFieldsRender('post');
 
       // set the nonce
       wp_nonce_field(static::$nonce_action, static::$nonce_name);

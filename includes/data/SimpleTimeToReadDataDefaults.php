@@ -5,14 +5,14 @@
  * @version 1.0.0
  */
 
-namespace lc\timetoread\includes\data;
+namespace lc\stimetoreadlsc\includes\data;
 
 if( ! defined('ABSPATH')) {
   exit; // Exit if accessed directly
 }
 
-if( ! class_exists('TimeToReadDataDefaults') ) {
-  class TimeToReadDataDefaults {
+if( ! class_exists('SimpleTimeToReadDataDefaults') ) {
+  class SimpleTimeToReadDataDefaults {
 
     /**
      * Type

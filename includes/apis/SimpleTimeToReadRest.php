@@ -5,14 +5,14 @@
  * @version 1.0.0
  */
 
-namespace lc\timetoread\includes\apis;
+namespace lc\stimetoreadlsc\includes\apis;
 
 if( ! defined('ABSPATH')) {
   exit; // Exit if accessed directly
 }
 
-if( ! class_exists('TimeToReadRest') ) {
-  class TimeToReadRest {
+if( ! class_exists('SimpleTimeToReadRest') ) {
+  class SimpleTimeToReadRest {
 
     /**
      * The single instance of the class.
@@ -59,10 +59,12 @@ if( ! class_exists('TimeToReadRest') ) {
      * @since 1.0.0
      */
     public function render_endpoint() {
-      register_rest_route('time-to-read/v1', '(?P<id>\d+)', array(
+      register_rest_route('simple-time-to-read-lsc/v1', '(?P<id>\d+)', array(
         'methods' => 'GET',
         'callback' => array( $this, 'render_callback' ),
-        'permission_callback' => '__return_true'
+        'permission_callback' => function() {
+          return current_user_can('edit_posts');
+        }
       ));
     }
 
@@ -78,8 +80,7 @@ if( ! class_exists('TimeToReadRest') ) {
         return new \WP_Error('invalid_id', 'Invalid post ID', array('status' => 400));
       }
 
-
-      $html = \lc\timetoread\includes\TimeToReadIntegrate::instance()->reading_time_block($post_id);
+      $html = \lc\stimetoreadlsc\includes\SimpleTimeToReadIntegrate::instance()->reading_time_block($post_id);
 
       if( !$html ) {
         return new \WP_Error('no_template', 'Template not found', array('status' => 404)); 

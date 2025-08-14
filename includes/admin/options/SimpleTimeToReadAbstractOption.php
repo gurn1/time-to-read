@@ -5,14 +5,14 @@
  * @version 1.0.0
  */
 
-namespace lc\timetoread\includes\admin\options;
+namespace lc\stimetoreadlsc\includes\admin\options;
 
 if( ! defined('ABSPATH')) {
   exit; // Exit if accessed directly
 }
 
-if( ! class_exists('TimeToReadAbstractOption') ) {
-  abstract class TimeToReadAbstractOption {
+if( ! class_exists('SimpleTimeToReadAbstractOption') ) {
+  abstract class SimpleTimeToReadAbstractOption {
 
     /**
      * Menu slug
@@ -52,7 +52,7 @@ if( ! class_exists('TimeToReadAbstractOption') ) {
      * @since 1.0.0
      */
     public function __construct() {
-      self::$options_name = TIMETOREAD_OPTION_NAME;
+      self::$options_name = STIMETOREADLSC_OPTION_NAME;
 
       add_action('admin_menu', array($this, 'add_admin_menu'));
       add_action('admin_init', array($this, 'register_settings'));
@@ -88,7 +88,7 @@ if( ! class_exists('TimeToReadAbstractOption') ) {
         );
 
         add_settings_section(
-          ttr_generate_admin_settings_field_path($setting_slug),
+          sttr_generate_admin_settings_field_path($setting_slug),
           esc_html($setting_name),
           '__return_false',
           static::$menu_slug . '_' . $setting_slug
@@ -113,7 +113,7 @@ if( ! class_exists('TimeToReadAbstractOption') ) {
     public static function sanitize_options($input, $saved = null) {
       // Load saved data only once, during the root call
       if ($saved === null) {
-          $saved = get_option(TIMETOREAD_OPTION_NAME, []);
+          $saved = get_option(STIMETOREADLSC_OPTION_NAME, []);
       }
 
       $sanitized = [];
@@ -169,7 +169,7 @@ if( ! class_exists('TimeToReadAbstractOption') ) {
     public static function render_page() {
       global $pagenow;
 
-      $template_path = TIMETOREAD_ABSPATH . '/includes/admin/options/views/option-' . static::$menu_slug . '.php';
+      $template_path = STIMETOREADLSC_ABSPATH . '/includes/admin/options/views/option-' . static::$menu_slug . '.php';
 
       // throw error if view template isn't found
       if(!file_exists($template_path)) {
@@ -181,7 +181,7 @@ if( ! class_exists('TimeToReadAbstractOption') ) {
         throw new \RuntimeException(__METHOD__ . ': $settings_name must be a non-empty array.');
       }
 
-      new \lc\timetoread\includes\admin\fields\TimeToReadFieldsRender();
+      new \lc\stimetoreadlsc\includes\admin\fields\SimpleTimeToReadFieldsRender();
 
       $settings_section_path = static::$menu_slug;
       $tabs = static::$settings_name;

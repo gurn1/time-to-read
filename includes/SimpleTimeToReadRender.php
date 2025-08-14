@@ -5,14 +5,14 @@
  * @version 1.0.0
  */
 
-namespace lc\timetoread\includes;
+namespace lc\stimetoreadlsc\includes;
 
 if( ! defined('ABSPATH')) {
   exit; // Exit if accessed directly
 }
 
-if( ! class_exists('TimeToReadReder') ) {
-  class TimeToReadRender {
+if( ! class_exists('SimpleTimeToReadReder') ) {
+  class SimpleTimeToReadRender {
 
     /**
      * Post id
@@ -48,7 +48,7 @@ if( ! class_exists('TimeToReadReder') ) {
         global $post;
 
         if( $post === null ) {
-          return new \WP_Error('timetoread_render_output', 'No post or post ID found');
+          return new \WP_Error('simple_timetoread_render_output', 'No post or post ID found');
         }
 
         self::$post_id = property_exists($post, 'ID') ? $post->ID : 0;
@@ -60,6 +60,8 @@ if( ! class_exists('TimeToReadReder') ) {
       if( is_object($post) ) {
         self::$post_type = property_exists($post, 'post_type') ? $post->post_type : '';
       }
+
+      
     }
 
     /**
@@ -70,9 +72,16 @@ if( ! class_exists('TimeToReadReder') ) {
      * @since 1.0.0
      */
     public static function instance($post_id = 0) {
+
+      // If instance is not created yet, make it
       if ( is_null( self::$_instance ) ) {
-        self::$_instance = new self($post_id);
+          self::$_instance = new self( $post_id );
+      } 
+      // If a post_id is passed and is different from the current one, re-init
+      elseif ( ! empty( $post_id ) && $post_id !== self::$post_id ) {
+          self::$_instance = new self( $post_id );
       }
+
       return self::$_instance;
     }
 
@@ -83,7 +92,7 @@ if( ! class_exists('TimeToReadReder') ) {
      * @return array
      */
     public function get_options() {
-      return \lc\timetoread\includes\data\TimeToReadDataOptions::instance();
+      return \lc\stimetoreadlsc\includes\data\SimpleTimeToReadDataOptions::instance();
     }
 
     /**
@@ -93,7 +102,7 @@ if( ! class_exists('TimeToReadReder') ) {
      * @return array
      */
     public function get_meta() {
-      return \lc\timetoread\includes\data\TimeToReadDataMeta::instance(self::$post_id);
+      return \lc\stimetoreadlsc\includes\data\SimpleTimeToReadDataMeta::instance(self::$post_id);
     }
 
     /**
@@ -103,7 +112,7 @@ if( ! class_exists('TimeToReadReder') ) {
      * @return float|int
      */
     public function get_calculation() {
-      return \lc\timetoread\includes\TimeToReadCalculate::instance(self::$post_id)->get_reading_time();
+      return \lc\stimetoreadlsc\includes\SimpleTimeToReadCalculate::instance(self::$post_id)->get_reading_time();
     }
 
     /**
@@ -142,7 +151,7 @@ if( ! class_exists('TimeToReadReder') ) {
       $output = '';
 
       if($raw_calculation < 1) {
-        $output = __('~ 1 min read', 'time-to-read');
+        $output = __('~ 1 min read', 'simple-time-to-read-lsc');
       } elseif($raw_calculation === 1) {
         $output = sprintf( '%s min read', number_format_i18n( $raw_calculation, 1 ) );
       } else {
@@ -168,7 +177,7 @@ if( ! class_exists('TimeToReadReder') ) {
         return;
       }
       
-      $template = TIMETOREAD_TEMPLATES . 'front.php';
+      $template = STIMETOREADLSC_TEMPLATES . 'front.php';
 
       if( !file_exists($template) ) {
         return;

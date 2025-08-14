@@ -5,14 +5,14 @@
  * @version 1.0.0
  */
 
-namespace lc\timetoread\includes\blocks;
+namespace lc\stimetoreadlsc\includes\blocks;
 
 if( ! defined('ABSPATH')) {
   exit; // Exit if accessed directly
 }
 
-if( ! class_exists('TimeToReadBlockMain') ) {
-  class TimeToReadBlockMain extends TimeToReadAbstractBlock {
+if( ! class_exists('SimpleTimeToReadBlockMain') ) {
+  class SimpleTimeToReadBlockMain extends SimpleTimeToReadAbstractBlock {
 
     /**
      * Set block name
@@ -36,7 +36,7 @@ if( ! class_exists('TimeToReadBlockMain') ) {
      * @since 1.0.0
      */
     public static function render_block($attributes, $content) {
-      return \lc\timetoread\includes\TimeToReadIntegrate::instance()->reading_time_block(true, $attributes);
+      return \lc\stimetoreadlsc\includes\SimpleTimeToReadIntegrate::instance()->reading_time_block(0, $attributes);
     }
     
   }

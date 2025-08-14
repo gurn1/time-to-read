@@ -5,14 +5,14 @@
  * @version 1.0.0
  */
 
-namespace lc\timetoread\includes;
+namespace lc\stimetoreadlsc\includes;
 
 if( ! defined('ABSPATH')) {
   exit; // Exit if accessed directly
 }
 
-if( ! class_exists('TimeToReadCalculate') ) {
-  class TimeToReadCalculate {
+if( ! class_exists('SimpleTimeToReadCalculate') ) {
+  class SimpleTimeToReadCalculate {
 
     /**
      * The single instance of the class.
