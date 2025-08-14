@@ -20,7 +20,7 @@ if( ! class_exists('TimeToReadOptionMain') ) {
      * @since 1.0.0
      * @return string
      */
-    public static $menu_slug = 'time-to-read-main';
+    public static $menu_slug = 'simple-time-to-read-lsc-main';
 
     /**
      * Menu title
@@ -28,7 +28,7 @@ if( ! class_exists('TimeToReadOptionMain') ) {
      * @since 1.0.0
      * @return string
      */
-    public static $menu_title = 'Time to Read';
+    public static $menu_title = 'Simple Time to Read';
 
     /**
      * Declare option sections
@@ -52,7 +52,7 @@ if( ! class_exists('TimeToReadOptionMain') ) {
 
       add_settings_field(
         'posttype_general_select_posttype',
-        __('Show on post types', 'time-to-read'),
+        __('Show on post types', 'simple-time-to-read-lsc'),
         array($render_field_path, 'render_posttype_field'),
         self::$menu_slug . '_settings_general',
         ttr_generate_admin_settings_field_path('settings_general'),
@@ -64,7 +64,7 @@ if( ! class_exists('TimeToReadOptionMain') ) {
 
       add_settings_field(
         'reading_time_text',
-        __('Reading time text', 'time-to-read'),
+        __('Reading time text', 'simple-time-to-read-lsc'),
         array($render_field_path, 'render_input_field'),
         self::$menu_slug . '_settings_general',
         ttr_generate_admin_settings_field_path('settings_general'),
@@ -76,7 +76,7 @@ if( ! class_exists('TimeToReadOptionMain') ) {
       /** Disable stylesheet */
       add_settings_field(
         'disable_stylesheet',
-        __('Disable Time To Read stylesheet', 'time-to-read'),
+        __('Disable Time To Read stylesheet', 'simple-time-to-read-lsc'),
         array($render_field_path, 'render_checkbox_field'),
         self::$menu_slug . '_settings_style',
         ttr_generate_admin_settings_field_path('settings_style'),

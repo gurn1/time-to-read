@@ -244,16 +244,16 @@ if( ! class_exists('TimeToReadFieldsRender') ) {
       }
 
       // Register a dummy script handle to attach inline script
-      wp_register_script('time-to-read-colorpicker-init', '', [], '1.0.0', true);
+      wp_register_script('simple-time-to-read-lsc-colorpicker-init', '', [], '1.0.0', true);
 
       // Add the inline script once
-      if ( ! wp_script_is('time-to-read-colorpicker-init', 'done') ) {
-        wp_enqueue_script('time-to-read-colorpicker-init');
+      if ( ! wp_script_is('simple-time-to-read-lsc-colorpicker-init', 'done') ) {
+        wp_enqueue_script('simple-time-to-read-lsc-colorpicker-init');
 
         wp_add_inline_script(
-          'time-to-read-colorpicker-init',
+          'simple-time-to-read-lsc-colorpicker-init',
           "jQuery(document).ready(function($) {
-            $('.time-to-read-colorpicker').wpColorPicker();
+            $('.simple-time-to-read-lsc-colorpicker').wpColorPicker();
           });"
         );
       }
@@ -265,7 +265,7 @@ if( ! class_exists('TimeToReadFieldsRender') ) {
       $name = self::$field_name . '[' . $field_id . ']';
 
       echo wp_kses(
-        sprintf('<input class="time-to-read-colorpicker regular-text" type="text" name="%s" value="%s">', $name, $field_value),
+        sprintf('<input class="simple-time-to-read-lsc-colorpicker regular-text" type="text" name="%s" value="%s">', $name, $field_value),
         self::$allowed_html
       );
 
@@ -286,16 +286,16 @@ if( ! class_exists('TimeToReadFieldsRender') ) {
       }
 
       // Register a custom init script (empty, just to attach inline script)
-      wp_register_script('time-to-read-datepicker-init', '', [], '1.0.0', true);
+      wp_register_script('simple-time-to-read-lsc-datepicker-init', '', [], '1.0.0', true);
       
       // Only add the inline script once
-      if ( ! wp_script_is('time-to-read-datepicker-init', 'done') ) {
-        wp_enqueue_script('time-to-read-datepicker-init');
+      if ( ! wp_script_is('simple-time-to-read-lsc-datepicker-init', 'done') ) {
+        wp_enqueue_script('simple-time-to-read-lsc-datepicker-init');
 
         wp_add_inline_script(
-          'time-to-read-datepicker-init',
+          'simple-time-to-read-lsc-datepicker-init',
           "jQuery(document).ready(function($) {
-            $('.time-to-read-datepicker').datepicker({
+            $('.simple-time-to-read-lsc-datepicker').datepicker({
               dateFormat: 'dd-mm-yy'
             });
           });"
@@ -309,7 +309,7 @@ if( ! class_exists('TimeToReadFieldsRender') ) {
       $name = self::$field_name . '[' . $field_id . ']';
 
       echo wp_kses(
-        sprintf('<input class="time-to-read-datepicker regular-text" type="text" name="%s" value="%s">', $name, $field_value),
+        sprintf('<input class="simple-time-to-read-lsc-datepicker regular-text" type="text" name="%s" value="%s">', $name, $field_value),
         self::$allowed_html
       );
 

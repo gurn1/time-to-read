@@ -5,14 +5,14 @@
  * Version: 1.0.0
  * Author: Luke Clifton
  * Author URI: https://www.lscwebdesign.co.uk
- * Text Domain: simple-time-to-read
+ * Text Domain: simple-time-to-read-lsc
  * Domain Path: /i18n/
- * License:         GPL-2.0-or-later
- * License URI:     https://www.gnu.org/licenses/gpl-2.0.html
+ * License: GPL-2.0-or-later
+ * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  * Requires at least: 5.6
  * Requires PHP: 8.0
  *
- * @package simple-time-to-read
+ * @package simple-time-to-read-lsc
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -28,10 +28,10 @@ if( ! defined( 'TIMETOREAD_FILE' ) ) {
  */
 require __DIR__ . '/vendor/autoload.php';
 
-if( ! function_exists('simple_time_to_read')) {
-  function simple_time_to_read() {
+if( ! function_exists('simple_time_to_read_lsc')) {
+  function simple_time_to_read_lsc() {
     return \lc\timetoread\includes\TimeToReadClass::instance();
   }
 
-  simple_time_to_read();
+  simple_time_to_read_lsc();
 }

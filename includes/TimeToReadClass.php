@@ -82,7 +82,7 @@ if( ! class_exists('TimeToReadClass') ) {
       // version
       $this->define( 'TIMETOREAD_VERSION', $this->version );
       // text domain
-      $this->define( 'TIMETOREAD_TEXT_DOMAIN', 'time-to-read' );
+      $this->define( 'TIMETOREAD_TEXT_DOMAIN', 'simple-time-to-read-lsc' );
       // admin url
       $this->define( 'TIMETOREAD_URL', $this->plugin_url() );
       // Assets folder public

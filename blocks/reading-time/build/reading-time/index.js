@@ -321,7 +321,7 @@ function Edit(_ref) {
   (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_4__.useEffect)(function () {
     if (!postId) return;
     _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_5___default()({
-      path: "/time-to-read/v1/".concat(postId)
+      path: "/simple-time-to-read-lsc/v1/".concat(postId)
     }).then(function (result) {
       setReadingTime(result || 'Not available');
       setIsLoading(false);

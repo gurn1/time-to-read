@@ -59,10 +59,12 @@ if( ! class_exists('TimeToReadRest') ) {
      * @since 1.0.0
      */
     public function render_endpoint() {
-      register_rest_route('time-to-read/v1', '(?P<id>\d+)', array(
+      register_rest_route('simple-time-to-read-lsc/v1', '(?P<id>\d+)', array(
         'methods' => 'GET',
         'callback' => array( $this, 'render_callback' ),
-        'permission_callback' => '__return_true'
+        'permission_callback' => function() {
+          return current_user_can('edit_posts');
+        }
       ));
     }
 

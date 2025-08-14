@@ -142,7 +142,7 @@ if( ! class_exists('TimeToReadReder') ) {
       $output = '';
 
       if($raw_calculation < 1) {
-        $output = __('~ 1 min read', 'time-to-read');
+        $output = __('~ 1 min read', 'simple-time-to-read-lsc');
       } elseif($raw_calculation === 1) {
         $output = sprintf( '%s min read', number_format_i18n( $raw_calculation, 1 ) );
       } else {

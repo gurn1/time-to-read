@@ -31,7 +31,7 @@ export default function Edit({ attributes }) {
 
 	useEffect(() => {
 		if (!postId) return;
-		apiFetch({ path: `/time-to-read/v1/${postId}` })
+		apiFetch({ path: `/simple-time-to-read-lsc/v1/${postId}` })
 			.then((result) => {
 				setReadingTime(result || 'Not available');
 				setIsLoading(false);
