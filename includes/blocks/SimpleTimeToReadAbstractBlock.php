@@ -5,14 +5,14 @@
  * @version 1.0.0
  */
 
-namespace lc\timetoread\includes\blocks;
+namespace lc\stimetoreadlsc\includes\blocks;
 
 if( ! defined('ABSPATH')) {
   exit; // Exit if accessed directly
 }
 
-if( ! class_exists('TimeToReadAbstractBlock') ) {
-  class TimeToReadAbstractBlock {
+if( ! class_exists('SimpleTimeToReadAbstractBlock') ) {
+  class SimpleTimeToReadAbstractBlock {
 
     /**
      * Block name
@@ -52,7 +52,7 @@ if( ! class_exists('TimeToReadAbstractBlock') ) {
      * @since 1.0.0
      */
     public function __construct() {
-      self::$path = trailingslashit(TIMETOREAD_BLOCK_PATH . static::$name);
+      self::$path = trailingslashit(STIMETOREADLSC_BLOCK_PATH . static::$name);
       self::$manifest = self::$path . 'build/blocks-manifest.php';
 
       add_action('init', array($this, 'register_block'));

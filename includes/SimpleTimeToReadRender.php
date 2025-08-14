@@ -5,14 +5,14 @@
  * @version 1.0.0
  */
 
-namespace lc\timetoread\includes;
+namespace lc\stimetoreadlsc\includes;
 
 if( ! defined('ABSPATH')) {
   exit; // Exit if accessed directly
 }
 
-if( ! class_exists('TimeToReadReder') ) {
-  class TimeToReadRender {
+if( ! class_exists('SimpleTimeToReadReder') ) {
+  class SimpleTimeToReadRender {
 
     /**
      * Post id
@@ -83,7 +83,7 @@ if( ! class_exists('TimeToReadReder') ) {
      * @return array
      */
     public function get_options() {
-      return \lc\timetoread\includes\data\TimeToReadDataOptions::instance();
+      return \lc\stimetoreadlsc\includes\data\SimpleTimeToReadDataOptions::instance();
     }
 
     /**
@@ -93,7 +93,7 @@ if( ! class_exists('TimeToReadReder') ) {
      * @return array
      */
     public function get_meta() {
-      return \lc\timetoread\includes\data\TimeToReadDataMeta::instance(self::$post_id);
+      return \lc\stimetoreadlsc\includes\data\SimpleTimeToReadDataMeta::instance(self::$post_id);
     }
 
     /**
@@ -103,7 +103,7 @@ if( ! class_exists('TimeToReadReder') ) {
      * @return float|int
      */
     public function get_calculation() {
-      return \lc\timetoread\includes\TimeToReadCalculate::instance(self::$post_id)->get_reading_time();
+      return \lc\stimetoreadlsc\includes\SimpleTimeToReadCalculate::instance(self::$post_id)->get_reading_time();
     }
 
     /**
@@ -168,7 +168,7 @@ if( ! class_exists('TimeToReadReder') ) {
         return;
       }
       
-      $template = TIMETOREAD_TEMPLATES . 'front.php';
+      $template = STIMETOREADLSC_TEMPLATES . 'front.php';
 
       if( !file_exists($template) ) {
         return;

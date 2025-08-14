@@ -5,14 +5,14 @@
  * @version 1.0.0
  */
 
-namespace lc\timetoread\includes\data;
+namespace lc\stimetoreadlsc\includes\data;
 
 if( ! defined('ABSPATH')) {
   exit; // Exit if accessed directly
 }
 
-if( ! class_exists('TimeToReadDataMeta') ) {
-  class TimeToReadDataMeta {
+if( ! class_exists('SimpleTimeToReadDataMeta') ) {
+  class SimpleTimeToReadDataMeta {
 
     /**
      * Defaults
@@ -64,7 +64,7 @@ if( ! class_exists('TimeToReadDataMeta') ) {
      * @return array|false
      */
     protected function set_meta() {
-      $meta = get_post_meta(self::$post_id, TIMETOREAD_META_NAME, true);
+      $meta = get_post_meta(self::$post_id, STIMETOREADLSC_META_NAME, true);
       self::$meta_values = is_array($meta) && !empty($meta) ? $meta : [];
     }
 
@@ -75,7 +75,7 @@ if( ! class_exists('TimeToReadDataMeta') ) {
      * @return array
      */
     protected function set_defaults() {
-      self::$defaults = \lc\timetoread\includes\data\TimeToReadDataDefaults::instance('post');
+      self::$defaults = \lc\stimetoreadlsc\includes\data\SimpleTimeToReadDataDefaults::instance('post');
     }
 
     /**

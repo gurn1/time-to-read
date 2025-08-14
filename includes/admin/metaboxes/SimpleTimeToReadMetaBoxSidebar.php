@@ -5,14 +5,14 @@
  * @version 1.0.0
  */
 
-namespace lc\timetoread\includes\admin\metaboxes;
+namespace lc\stimetoreadlsc\includes\admin\metaboxes;
 
 if( ! defined('ABSPATH')) {
   exit; // Exit if accessed directly
 }
 
-if( ! class_exists('TimeToReadMetaBoxSidebar') ) {
-  class TimeToReadMetaBoxSidebar extends TimeToReadAbstractMetabox {
+if( ! class_exists('SimpleTimeToReadMetaBoxSidebar') ) {
+  class SimpleTimeToReadMetaBoxSidebar extends SimpleTimeToReadAbstractMetabox {
 
     /**
      * ID
@@ -89,7 +89,7 @@ if( ! class_exists('TimeToReadMetaBoxSidebar') ) {
       }
 
       $post_type = property_exists($post, 'post_type') ? $post->post_type : '';
-      $options = \lc\timetoread\includes\data\TimeToReadDataOptions::instance();
+      $options = \lc\stimetoreadlsc\includes\data\SimpleTimeToReadDataOptions::instance();
       $post_type_checker = isset($options['posttype_selector']) ? $options['posttype_selector'] : [];
 
       if( is_array($post_type_checker) && array_key_exists($post_type, $post_type_checker) && $post_type_checker[$post_type] === '1' ) {

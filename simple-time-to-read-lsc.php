@@ -17,8 +17,8 @@
 
 defined( 'ABSPATH' ) || exit;
 
-if( ! defined( 'TIMETOREAD_FILE' ) ) {
-  define( 'TIMETOREAD_FILE', __FILE__ );
+if( ! defined( 'STIMETOREADLSC_FILE' ) ) {
+  define( 'STIMETOREADLSC_FILE', __FILE__ );
 }
 
 /**
@@ -30,7 +30,7 @@ require __DIR__ . '/vendor/autoload.php';
 
 if( ! function_exists('simple_time_to_read_lsc')) {
   function simple_time_to_read_lsc() {
-    return \lc\timetoread\includes\TimeToReadClass::instance();
+    return \lc\stimetoreadlsc\includes\SimpleTimeToReadClass::instance();
   }
 
   simple_time_to_read_lsc();

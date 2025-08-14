@@ -5,14 +5,14 @@
  * @version 1.0.0
  */
 
-namespace lc\timetoread\includes\apis;
+namespace lc\stimetoreadlsc\includes\apis;
 
 if( ! defined('ABSPATH')) {
   exit; // Exit if accessed directly
 }
 
-if( ! class_exists('TimeToReadRest') ) {
-  class TimeToReadRest {
+if( ! class_exists('SimpleTimeToReadRest') ) {
+  class SimpleTimeToReadRest {
 
     /**
      * The single instance of the class.
@@ -81,7 +81,7 @@ if( ! class_exists('TimeToReadRest') ) {
       }
 
 
-      $html = \lc\timetoread\includes\TimeToReadIntegrate::instance()->reading_time_block($post_id);
+      $html = \lc\stimetoreadlsc\includes\SimpleTimeToReadIntegrate::instance()->reading_time_block($post_id);
 
       if( !$html ) {
         return new \WP_Error('no_template', 'Template not found', array('status' => 404)); 

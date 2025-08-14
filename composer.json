@@ -1,11 +1,11 @@
 {
-    "name": "lc/timetoread",
+    "name": "lc/stimetoreadlsc",
     "description": "",
     "type": "project",
     "license": "GPLv3",
     "autoload": {
         "psr-4": {
-            "lc\\timetoread\\": ""
+            "lc\\stimetoreadlsc\\": ""
         }
     },
     "authors": [

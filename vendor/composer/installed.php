@@ -1,19 +1,19 @@
 <?php return array(
     'root' => array(
-        'name' => 'lc/timetoread',
-        'pretty_version' => '1.0.0+no-version-set',
-        'version' => '1.0.0.0',
-        'reference' => null,
+        'name' => 'lc/stimetoreadlsc',
+        'pretty_version' => 'dev-main',
+        'version' => 'dev-main',
+        'reference' => '7692e36f41199c3a94fc6def34de14a80eb31e47',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
         'dev' => true,
     ),
     'versions' => array(
-        'lc/timetoread' => array(
-            'pretty_version' => '1.0.0+no-version-set',
-            'version' => '1.0.0.0',
-            'reference' => null,
+        'lc/stimetoreadlsc' => array(
+            'pretty_version' => 'dev-main',
+            'version' => 'dev-main',
+            'reference' => '7692e36f41199c3a94fc6def34de14a80eb31e47',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

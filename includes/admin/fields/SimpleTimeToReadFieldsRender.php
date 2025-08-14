@@ -5,14 +5,14 @@
  * @version 1.0.0
  */
 
-namespace lc\timetoread\includes\admin\fields;
+namespace lc\stimetoreadlsc\includes\admin\fields;
 
 if( ! defined('ABSPATH')) {
   exit; // Exit if accessed directly
 }
 
-if( ! class_exists('TimeToReadFieldsRender') ) {
-  class TimeToReadFieldsRender {
+if( ! class_exists('SimpleTimeToReadFieldsRender') ) {
+  class SimpleTimeToReadFieldsRender {
 
     /**
      * Field name
@@ -87,14 +87,14 @@ if( ! class_exists('TimeToReadFieldsRender') ) {
           return;
         }
 
-        self::$options = \lc\timetoread\includes\data\TimeToReadDataMeta::instance($post->ID);
-        self::$field_name = TIMETOREAD_META_NAME;
+        self::$options = \lc\stimetoreadlsc\includes\data\SimpleTimeToReadDataMeta::instance($post->ID);
+        self::$field_name = STIMETOREADLSC_META_NAME;
       } else {
-        self::$options = \lc\timetoread\includes\data\TimeToReadDataOptions::instance();
-        self::$field_name = TIMETOREAD_OPTION_NAME;
+        self::$options = \lc\stimetoreadlsc\includes\data\SimpleTimeToReadDataOptions::instance();
+        self::$field_name = STIMETOREADLSC_OPTION_NAME;
       } 
 
-      self::$defaults = \lc\timetoread\includes\data\TimeToReadDataDefaults::instance($type);
+      self::$defaults = \lc\stimetoreadlsc\includes\data\SimpleTimeToReadDataDefaults::instance($type);
     }
 
     /**

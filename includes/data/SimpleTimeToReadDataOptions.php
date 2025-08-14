@@ -5,14 +5,14 @@
  * @version 1.0.0
  */
 
-namespace lc\timetoread\includes\data;
+namespace lc\stimetoreadlsc\includes\data;
 
 if( ! defined('ABSPATH')) {
   exit; // Exit if accessed directly
 }
 
-if( ! class_exists('TimeToReadDataOptions') ) {
-  class TimeToReadDataOptions {
+if( ! class_exists('SimpleTimeToReadDataOptions') ) {
+  class SimpleTimeToReadDataOptions {
 
     /**
      * Defaults
@@ -55,7 +55,7 @@ if( ! class_exists('TimeToReadDataOptions') ) {
      * @return array|false
      */
     protected function set_options() {
-      $option = get_option(TIMETOREAD_OPTION_NAME);
+      $option = get_option(STIMETOREADLSC_OPTION_NAME);
       self::$option_values = is_array($option) && !empty($option) ? $option : [];
     }
 
@@ -66,7 +66,7 @@ if( ! class_exists('TimeToReadDataOptions') ) {
      * @return array
      */
     protected function set_defaults() {
-      self::$defaults = \lc\timetoread\includes\data\TimeToReadDataDefaults::instance('option');
+      self::$defaults = \lc\stimetoreadlsc\includes\data\SimpleTimeToReadDataDefaults::instance('option');
     }
 
     /**

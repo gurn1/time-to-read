@@ -5,14 +5,14 @@
  * @version 1.0.0
  */
 
-namespace lc\timetoread\includes;
+namespace lc\stimetoreadlsc\includes;
 
 if( ! defined('ABSPATH')) {
   exit; // Exit if accessed directly
 }
 
-if( ! class_exists('TimeToReadIntegrate') ) {
-  class TimeToReadIntegrate {
+if( ! class_exists('SimpleTimeToReadIntegrate') ) {
+  class SimpleTimeToReadIntegrate {
 
     /**
      * The single instance of the class.
@@ -53,7 +53,7 @@ if( ! class_exists('TimeToReadIntegrate') ) {
       // hook reading time
       add_filter('the_content', array($this, 'insert_to_the_content'));
       // create reading time shortcode
-      add_shortcode('time_to_read', array($this, 'shortcode'));
+      add_shortcode('simple_time_to_read', array($this, 'shortcode'));
     }
 
     /**
@@ -63,14 +63,14 @@ if( ! class_exists('TimeToReadIntegrate') ) {
      */
     public function insert_to_the_content($content) {
       $post_id = get_the_ID();
-      $settings = \lc\timetoread\includes\data\TimeToReadDataMeta::instance($post_id);
+      $settings = \lc\stimetoreadlsc\includes\data\SimpleTimeToReadDataMeta::instance($post_id);
 
       // check for disabled automatic output
       if( isset($settings['disable_automatic_output']) && $settings['disable_automatic_output'] === 1 ) {
         return;
       }
 
-      $reading_time_output = \lc\timetoread\includes\TimeToReadRender::instance($post_id)->render_template(true);
+      $reading_time_output = \lc\stimetoreadlsc\includes\SimpleTimeToReadRender::instance($post_id)->render_template(true);
 
       return $reading_time_output . $content;
     }
@@ -88,9 +88,9 @@ if( ! class_exists('TimeToReadIntegrate') ) {
       }
 
       $defaults = [];
-      $atts = shortcode_atts( $defaults, $atts, 'time_to_read' );
+      $atts = shortcode_atts( $defaults, $atts, 'simple_time_to_read' );
 
-      return \lc\timetoread\includes\TimeToReadRender::instance($post_id)->render_template(true); 
+      return \lc\stimetoreadlsc\includes\SimpleTimeToReadRender::instance($post_id)->render_template(true); 
     }
 
     /**
@@ -129,7 +129,7 @@ if( ! class_exists('TimeToReadIntegrate') ) {
         'style' => $style_attr
       ];
 
-      return \lc\timetoread\includes\TimeToReadRender::instance($post_id)->render_template(true, $args);
+      return \lc\stimetoreadlsc\includes\SimpleTimeToReadRender::instance($post_id)->render_template(true, $args);
     }
     
   }
