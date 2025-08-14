@@ -48,7 +48,7 @@ if( ! class_exists('SimpleTimeToReadReder') ) {
         global $post;
 
         if( $post === null ) {
-          return new \WP_Error('timetoread_render_output', 'No post or post ID found');
+          return new \WP_Error('simple_timetoread_render_output', 'No post or post ID found');
         }
 
         self::$post_id = property_exists($post, 'ID') ? $post->ID : 0;
@@ -60,6 +60,8 @@ if( ! class_exists('SimpleTimeToReadReder') ) {
       if( is_object($post) ) {
         self::$post_type = property_exists($post, 'post_type') ? $post->post_type : '';
       }
+
+      
     }
 
     /**
@@ -70,9 +72,16 @@ if( ! class_exists('SimpleTimeToReadReder') ) {
      * @since 1.0.0
      */
     public static function instance($post_id = 0) {
+
+      // If instance is not created yet, make it
       if ( is_null( self::$_instance ) ) {
-        self::$_instance = new self($post_id);
+          self::$_instance = new self( $post_id );
+      } 
+      // If a post_id is passed and is different from the current one, re-init
+      elseif ( ! empty( $post_id ) && $post_id !== self::$post_id ) {
+          self::$_instance = new self( $post_id );
       }
+
       return self::$_instance;
     }
 

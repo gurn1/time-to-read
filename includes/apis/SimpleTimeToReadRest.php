@@ -80,7 +80,6 @@ if( ! class_exists('SimpleTimeToReadRest') ) {
         return new \WP_Error('invalid_id', 'Invalid post ID', array('status' => 400));
       }
 
-
       $html = \lc\stimetoreadlsc\includes\SimpleTimeToReadIntegrate::instance()->reading_time_block($post_id);
 
       if( !$html ) {

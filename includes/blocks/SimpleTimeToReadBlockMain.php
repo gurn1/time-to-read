@@ -36,7 +36,7 @@ if( ! class_exists('SimpleTimeToReadBlockMain') ) {
      * @since 1.0.0
      */
     public static function render_block($attributes, $content) {
-      return \lc\stimetoreadlsc\includes\SimpleTimeToReadIntegrate::instance()->reading_time_block(true, $attributes);
+      return \lc\stimetoreadlsc\includes\SimpleTimeToReadIntegrate::instance()->reading_time_block(0, $attributes);
     }
     
   }

@@ -220,9 +220,10 @@ if( ! class_exists('SimpleTimeToReadAbstractMetabox') ) {
         return;
       }
 
-      $nonce_post = isset($_POST[static::$nonce_name]) ? wp_unslash(sanitize_text_field($_POST[static::$nonce_name])) : '';
+      $nonce_post = isset($_POST[static::$nonce_name]) ? wp_unslash( sanitize_text_field($_POST[static::$nonce_name])) : ''; // phpcs:ignore
 
       // Check nonce
+      // phpcs:ignore
       if(!wp_verify_nonce($nonce_post, static::$nonce_action)) {
         if(WP_DEBUG) {
           error_log(sprintf('Nonce verification failed for %s, on post #%s', static::$nonce_name, $post_id)); // phpcs:ignore
