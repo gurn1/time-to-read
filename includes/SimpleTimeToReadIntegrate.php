@@ -53,7 +53,7 @@ if( ! class_exists('SimpleTimeToReadIntegrate') ) {
       // hook reading time
       add_filter('the_content', array($this, 'insert_to_the_content'));
       // create reading time shortcode
-      add_shortcode('simple_time_to_read', array($this, 'shortcode'));
+      add_shortcode('simple_time_to_read_lsc', array($this, 'shortcode'));
     }
 
     /**
