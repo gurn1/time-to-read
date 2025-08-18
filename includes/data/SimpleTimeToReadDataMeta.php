@@ -5,7 +5,7 @@
  * @version 1.0.0
  */
 
-namespace lc\stimetoreadlsc\includes\data;
+namespace lc\sttrlsc\includes\data;
 
 if( ! defined('ABSPATH')) {
   exit; // Exit if accessed directly
@@ -64,7 +64,7 @@ if( ! class_exists('SimpleTimeToReadDataMeta') ) {
      * @return array|false
      */
     protected function set_meta() {
-      $meta = get_post_meta(self::$post_id, STIMETOREADLSC_META_NAME, true);
+      $meta = get_post_meta(self::$post_id, STTRLSC_META_NAME, true);
       self::$meta_values = is_array($meta) && !empty($meta) ? $meta : [];
     }
 
@@ -75,7 +75,7 @@ if( ! class_exists('SimpleTimeToReadDataMeta') ) {
      * @return array
      */
     protected function set_defaults() {
-      self::$defaults = \lc\stimetoreadlsc\includes\data\SimpleTimeToReadDataDefaults::instance('post');
+      self::$defaults = \lc\sttrlsc\includes\data\SimpleTimeToReadDataDefaults::instance('post');
     }
 
     /**

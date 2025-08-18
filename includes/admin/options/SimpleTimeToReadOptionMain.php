@@ -5,7 +5,7 @@
  * @version 1.0.0
  */
 
-namespace lc\stimetoreadlsc\includes\admin\options;
+namespace lc\sttrlsc\includes\admin\options;
 
 if( ! defined('ABSPATH')) {
   exit; // Exit if accessed directly
@@ -48,7 +48,7 @@ if( ! class_exists('SimpleTimeToReadOptionMain') ) {
      * @return string
      */
     protected function register_fields($settings_name) {
-      $render_field_path = '\lc\stimetoreadlsc\includes\admin\fields\SimpleTimeToReadFieldsRender';
+      $render_field_path = '\lc\sttrlsc\includes\admin\fields\SimpleTimeToReadFieldsRender';
 
       add_settings_field(
         'posttype_general_select_posttype',

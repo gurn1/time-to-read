@@ -6,5 +6,5 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
-    'lc\\stimetoreadlsc\\' => array($baseDir . '/'),
+    'lc\\sttrlsc\\' => array($baseDir . '/'),
 );

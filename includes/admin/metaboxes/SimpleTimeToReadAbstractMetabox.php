@@ -5,7 +5,7 @@
  * @version 1.0.0
  */
 
-namespace lc\stimetoreadlsc\includes\admin\metaboxes;
+namespace lc\sttrlsc\includes\admin\metaboxes;
 
 if( ! defined('ABSPATH')) {
   exit; // Exit if accessed directly
@@ -86,7 +86,7 @@ if( ! class_exists('SimpleTimeToReadAbstractMetabox') ) {
      * @since 1.0.0
      */
     public function __construct() {
-      self::$meta_name = STIMETOREADLSC_META_NAME;
+      self::$meta_name = STTRLSC_META_NAME;
 
       // Generate nonce identifiers
       static::$nonce_action = static::$ID . '_action';
@@ -144,7 +144,7 @@ if( ! class_exists('SimpleTimeToReadAbstractMetabox') ) {
      * @return string
      */
     protected static function render_fields() {
-      $output =  new \lc\stimetoreadlsc\includes\admin\fields\SimpleTimeToReadFieldsRender('post');
+      $output =  new \lc\sttrlsc\includes\admin\fields\SimpleTimeToReadFieldsRender('post');
 
       foreach(static::register_fields() as $field_id => $field) {
         $label = isset($field['label']) ? esc_html($field['label']) : '';
@@ -299,14 +299,14 @@ if( ! class_exists('SimpleTimeToReadAbstractMetabox') ) {
         return;
       }
 
-      $template_path = STIMETOREADLSC_ABSPATH . '/includes/admin/metaboxes/views/metabox-' . static::$ID . '.php';
+      $template_path = STTRLSC_ABSPATH . '/includes/admin/metaboxes/views/metabox-' . static::$ID . '.php';
 
       // throw error if view template isn't found
       if(!file_exists($template_path)) {
         trigger_error(sprintf('The file %s, is missing from this plugin installation', esc_url($template_path)), E_USER_ERROR); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_trigger_error
       }
 
-      new \lc\stimetoreadlsc\includes\admin\fields\SimpleTimeToReadFieldsRender('post');
+      new \lc\sttrlsc\includes\admin\fields\SimpleTimeToReadFieldsRender('post');
 
       // set the nonce
       wp_nonce_field(static::$nonce_action, static::$nonce_name);

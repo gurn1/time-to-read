@@ -5,7 +5,7 @@
  * @version 1.0.0
  */
 
-namespace lc\stimetoreadlsc\includes;
+namespace lc\sttrlsc\includes;
 
 if( ! defined('ABSPATH')) {
   exit; // Exit if accessed directly
@@ -53,7 +53,7 @@ if( ! class_exists('SimpleTimeToReadIntegrate') ) {
       // hook reading time
       add_filter('the_content', array($this, 'insert_to_the_content'));
       // create reading time shortcode
-      add_shortcode('simple_time_to_read_lsc', array($this, 'shortcode'));
+      add_shortcode('sttrlsc_main', array($this, 'shortcode'));
     }
 
     /**
@@ -63,14 +63,14 @@ if( ! class_exists('SimpleTimeToReadIntegrate') ) {
      */
     public function insert_to_the_content($content) {
       $post_id = get_the_ID();
-      $settings = \lc\stimetoreadlsc\includes\data\SimpleTimeToReadDataMeta::instance($post_id);
+      $settings = \lc\sttrlsc\includes\data\SimpleTimeToReadDataMeta::instance($post_id);
 
       // check for disabled automatic output
       if( isset($settings['disable_automatic_output']) && $settings['disable_automatic_output'] === 1 ) {
         return;
       }
 
-      $reading_time_output = \lc\stimetoreadlsc\includes\SimpleTimeToReadRender::instance($post_id)->render_template(true);
+      $reading_time_output = \lc\sttrlsc\includes\SimpleTimeToReadRender::instance($post_id)->render_template(true);
 
       return $reading_time_output . $content;
     }
@@ -90,7 +90,7 @@ if( ! class_exists('SimpleTimeToReadIntegrate') ) {
       $defaults = [];
       $atts = shortcode_atts( $defaults, $atts, 'simple_time_to_read' );
 
-      return \lc\stimetoreadlsc\includes\SimpleTimeToReadRender::instance($post_id)->render_template(true); 
+      return \lc\sttrlsc\includes\SimpleTimeToReadRender::instance($post_id)->render_template(true); 
     }
 
     /**
@@ -129,7 +129,7 @@ if( ! class_exists('SimpleTimeToReadIntegrate') ) {
         'style' => $style_attr
       ];
 
-      return \lc\stimetoreadlsc\includes\SimpleTimeToReadRender::instance($post_id)->render_template(true, $args);
+      return \lc\sttrlsc\includes\SimpleTimeToReadRender::instance($post_id)->render_template(true, $args);
     }
     
   }

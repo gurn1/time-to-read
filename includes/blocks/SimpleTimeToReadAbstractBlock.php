@@ -5,7 +5,7 @@
  * @version 1.0.0
  */
 
-namespace lc\stimetoreadlsc\includes\blocks;
+namespace lc\sttrlsc\includes\blocks;
 
 if( ! defined('ABSPATH')) {
   exit; // Exit if accessed directly
@@ -52,7 +52,7 @@ if( ! class_exists('SimpleTimeToReadAbstractBlock') ) {
      * @since 1.0.0
      */
     public function __construct() {
-      self::$path = trailingslashit(STIMETOREADLSC_BLOCK_PATH . static::$name);
+      self::$path = trailingslashit(STTRLSC_BLOCK_PATH . static::$name);
       self::$manifest = self::$path . 'build/blocks-manifest.php';
 
       add_action('init', array($this, 'register_block'));

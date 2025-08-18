@@ -5,7 +5,7 @@
  * @version 1.0.0
  */
 
-namespace lc\stimetoreadlsc\includes;
+namespace lc\sttrlsc\includes;
 
 if( ! defined('ABSPATH')) {
   exit; // Exit if accessed directly

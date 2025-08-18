@@ -5,7 +5,7 @@
  * @version 1.0.0
  */
 
-namespace lc\stimetoreadlsc\includes\blocks;
+namespace lc\sttrlsc\includes\blocks;
 
 if( ! defined('ABSPATH')) {
   exit; // Exit if accessed directly
@@ -36,7 +36,7 @@ if( ! class_exists('SimpleTimeToReadBlockMain') ) {
      * @since 1.0.0
      */
     public static function render_block($attributes, $content) {
-      return \lc\stimetoreadlsc\includes\SimpleTimeToReadIntegrate::instance()->reading_time_block(0, $attributes);
+      return \lc\sttrlsc\includes\SimpleTimeToReadIntegrate::instance()->reading_time_block(0, $attributes);
     }
     
   }

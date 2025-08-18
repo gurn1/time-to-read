@@ -5,7 +5,7 @@
  * @version 1.0.0
  */
 
-namespace lc\stimetoreadlsc\includes;
+namespace lc\sttrlsc\includes;
 
 if( ! defined('ABSPATH')) {
   exit; // Exit if accessed directly
@@ -92,7 +92,7 @@ if( ! class_exists('SimpleTimeToReadReder') ) {
      * @return array
      */
     public function get_options() {
-      return \lc\stimetoreadlsc\includes\data\SimpleTimeToReadDataOptions::instance();
+      return \lc\sttrlsc\includes\data\SimpleTimeToReadDataOptions::instance();
     }
 
     /**
@@ -102,7 +102,7 @@ if( ! class_exists('SimpleTimeToReadReder') ) {
      * @return array
      */
     public function get_meta() {
-      return \lc\stimetoreadlsc\includes\data\SimpleTimeToReadDataMeta::instance(self::$post_id);
+      return \lc\sttrlsc\includes\data\SimpleTimeToReadDataMeta::instance(self::$post_id);
     }
 
     /**
@@ -112,7 +112,7 @@ if( ! class_exists('SimpleTimeToReadReder') ) {
      * @return float|int
      */
     public function get_calculation() {
-      return \lc\stimetoreadlsc\includes\SimpleTimeToReadCalculate::instance(self::$post_id)->get_reading_time();
+      return \lc\sttrlsc\includes\SimpleTimeToReadCalculate::instance(self::$post_id)->get_reading_time();
     }
 
     /**
@@ -177,7 +177,7 @@ if( ! class_exists('SimpleTimeToReadReder') ) {
         return;
       }
       
-      $template = STIMETOREADLSC_TEMPLATES . 'front.php';
+      $template = STTRLSC_TEMPLATES . 'front.php';
 
       if( !file_exists($template) ) {
         return;

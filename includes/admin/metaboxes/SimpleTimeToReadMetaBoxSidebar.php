@@ -5,7 +5,7 @@
  * @version 1.0.0
  */
 
-namespace lc\stimetoreadlsc\includes\admin\metaboxes;
+namespace lc\sttrlsc\includes\admin\metaboxes;
 
 if( ! defined('ABSPATH')) {
   exit; // Exit if accessed directly
@@ -89,7 +89,7 @@ if( ! class_exists('SimpleTimeToReadMetaBoxSidebar') ) {
       }
 
       $post_type = property_exists($post, 'post_type') ? $post->post_type : '';
-      $options = \lc\stimetoreadlsc\includes\data\SimpleTimeToReadDataOptions::instance();
+      $options = \lc\sttrlsc\includes\data\SimpleTimeToReadDataOptions::instance();
       $post_type_checker = isset($options['posttype_selector']) ? $options['posttype_selector'] : [];
 
       if( is_array($post_type_checker) && array_key_exists($post_type, $post_type_checker) && $post_type_checker[$post_type] === '1' ) {
