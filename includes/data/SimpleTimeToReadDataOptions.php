@@ -5,7 +5,7 @@
  * @version 1.0.0
  */
 
-namespace lc\stimetoreadlsc\includes\data;
+namespace lc\sttrlsc\includes\data;
 
 if( ! defined('ABSPATH')) {
   exit; // Exit if accessed directly
@@ -55,7 +55,7 @@ if( ! class_exists('SimpleTimeToReadDataOptions') ) {
      * @return array|false
      */
     protected function set_options() {
-      $option = get_option(STIMETOREADLSC_OPTION_NAME);
+      $option = get_option(STTRLSC_OPTION_NAME);
       self::$option_values = is_array($option) && !empty($option) ? $option : [];
     }
 
@@ -66,7 +66,7 @@ if( ! class_exists('SimpleTimeToReadDataOptions') ) {
      * @return array
      */
     protected function set_defaults() {
-      self::$defaults = \lc\stimetoreadlsc\includes\data\SimpleTimeToReadDataDefaults::instance('option');
+      self::$defaults = \lc\sttrlsc\includes\data\SimpleTimeToReadDataDefaults::instance('option');
     }
 
     /**

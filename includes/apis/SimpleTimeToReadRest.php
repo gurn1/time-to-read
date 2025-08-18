@@ -5,7 +5,7 @@
  * @version 1.0.0
  */
 
-namespace lc\stimetoreadlsc\includes\apis;
+namespace lc\sttrlsc\includes\apis;
 
 if( ! defined('ABSPATH')) {
   exit; // Exit if accessed directly
@@ -80,7 +80,7 @@ if( ! class_exists('SimpleTimeToReadRest') ) {
         return new \WP_Error('invalid_id', 'Invalid post ID', array('status' => 400));
       }
 
-      $html = \lc\stimetoreadlsc\includes\SimpleTimeToReadIntegrate::instance()->reading_time_block($post_id);
+      $html = \lc\sttrlsc\includes\SimpleTimeToReadIntegrate::instance()->reading_time_block($post_id);
 
       if( !$html ) {
         return new \WP_Error('no_template', 'Template not found', array('status' => 404)); 

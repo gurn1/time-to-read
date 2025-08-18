@@ -5,7 +5,7 @@
  * @version 1.0.0
  */
 
-namespace lc\stimetoreadlsc\includes\admin\fields;
+namespace lc\sttrlsc\includes\admin\fields;
 
 if( ! defined('ABSPATH')) {
   exit; // Exit if accessed directly
@@ -87,14 +87,14 @@ if( ! class_exists('SimpleTimeToReadFieldsRender') ) {
           return;
         }
 
-        self::$options = \lc\stimetoreadlsc\includes\data\SimpleTimeToReadDataMeta::instance($post->ID);
-        self::$field_name = STIMETOREADLSC_META_NAME;
+        self::$options = \lc\sttrlsc\includes\data\SimpleTimeToReadDataMeta::instance($post->ID);
+        self::$field_name = STTRLSC_META_NAME;
       } else {
-        self::$options = \lc\stimetoreadlsc\includes\data\SimpleTimeToReadDataOptions::instance();
-        self::$field_name = STIMETOREADLSC_OPTION_NAME;
+        self::$options = \lc\sttrlsc\includes\data\SimpleTimeToReadDataOptions::instance();
+        self::$field_name = STTRLSC_OPTION_NAME;
       } 
 
-      self::$defaults = \lc\stimetoreadlsc\includes\data\SimpleTimeToReadDataDefaults::instance($type);
+      self::$defaults = \lc\sttrlsc\includes\data\SimpleTimeToReadDataDefaults::instance($type);
     }
 
     /**

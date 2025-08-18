@@ -5,7 +5,7 @@
  * @version 1.0.0
  */
 
-namespace lc\stimetoreadlsc\includes\admin;
+namespace lc\sttrlsc\includes\admin;
 
 if( ! defined('ABSPATH')) {
   exit; // Exit if accessed directly
@@ -65,14 +65,14 @@ if( ! class_exists('SimpleTimeToReadAdmin') ) {
        * 
        * @since 1.0.0
        */
-      new \lc\stimetoreadlsc\includes\admin\options\SimpleTimeToReadOptionMain();
+      new \lc\sttrlsc\includes\admin\options\SimpleTimeToReadOptionMain();
 
       /**
        * Register metaboxes
        * 
        * @since 1.0.0
        */
-      new \lc\stimetoreadlsc\includes\admin\metaboxes\SimpleTimeToReadMetaBoxSidebar();
+      new \lc\sttrlsc\includes\admin\metaboxes\SimpleTimeToReadMetaBoxSidebar();
       
       /**
        * Register admin scripts
@@ -98,7 +98,7 @@ if( ! class_exists('SimpleTimeToReadAdmin') ) {
     public function enqueue_scripts() {
       // Main admin js script
       // if( ! wp_script_is('timetoread-admin', 'enqueued') ) {
-      //   wp_enqueue_script('timetoread-admin', STIMETOREADLSC_ASSETS_ADMIN_URL . 'js/timetoread-admin.js', array(), '1.0.0', true);
+      //   wp_enqueue_script('timetoread-admin', STTRLSC_ASSETS_ADMIN_URL . 'js/timetoread-admin.js', array(), '1.0.0', true);
       // }
 
       // wp_localize_script(
@@ -119,7 +119,7 @@ if( ! class_exists('SimpleTimeToReadAdmin') ) {
     public function enqueue_styles() {
       // locations frontend css stylesheet
       if( ! wp_style_is('timetoread-admin-css', 'registered') ) {
-        wp_register_style('timetoread-admin-css', STIMETOREADLSC_ASSETS_ADMIN_URL . 'css/timetoread-admin.css', array(), '1.0.0');
+        wp_register_style('timetoread-admin-css', STTRLSC_ASSETS_ADMIN_URL . 'css/timetoread-admin.css', array(), '1.0.0');
       }
 
     }

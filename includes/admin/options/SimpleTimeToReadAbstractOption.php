@@ -5,7 +5,7 @@
  * @version 1.0.0
  */
 
-namespace lc\stimetoreadlsc\includes\admin\options;
+namespace lc\sttrlsc\includes\admin\options;
 
 if( ! defined('ABSPATH')) {
   exit; // Exit if accessed directly
@@ -52,7 +52,7 @@ if( ! class_exists('SimpleTimeToReadAbstractOption') ) {
      * @since 1.0.0
      */
     public function __construct() {
-      self::$options_name = STIMETOREADLSC_OPTION_NAME;
+      self::$options_name = STTRLSC_OPTION_NAME;
 
       add_action('admin_menu', array($this, 'add_admin_menu'));
       add_action('admin_init', array($this, 'register_settings'));
@@ -113,7 +113,7 @@ if( ! class_exists('SimpleTimeToReadAbstractOption') ) {
     public static function sanitize_options($input, $saved = null) {
       // Load saved data only once, during the root call
       if ($saved === null) {
-          $saved = get_option(STIMETOREADLSC_OPTION_NAME, []);
+          $saved = get_option(STTRLSC_OPTION_NAME, []);
       }
 
       $sanitized = [];
@@ -169,7 +169,7 @@ if( ! class_exists('SimpleTimeToReadAbstractOption') ) {
     public static function render_page() {
       global $pagenow;
 
-      $template_path = STIMETOREADLSC_ABSPATH . '/includes/admin/options/views/option-' . static::$menu_slug . '.php';
+      $template_path = STTRLSC_ABSPATH . '/includes/admin/options/views/option-' . static::$menu_slug . '.php';
 
       // throw error if view template isn't found
       if(!file_exists($template_path)) {
@@ -181,7 +181,7 @@ if( ! class_exists('SimpleTimeToReadAbstractOption') ) {
         throw new \RuntimeException(__METHOD__ . ': $settings_name must be a non-empty array.');
       }
 
-      new \lc\stimetoreadlsc\includes\admin\fields\SimpleTimeToReadFieldsRender();
+      new \lc\sttrlsc\includes\admin\fields\SimpleTimeToReadFieldsRender();
 
       $settings_section_path = static::$menu_slug;
       $tabs = static::$settings_name;

@@ -6,7 +6,6 @@
  * Author: Luke Clifton
  * Author URI: https://www.lscwebdesign.co.uk
  * Text Domain: simple-time-to-read-lsc
- * Domain Path: /i18n
  * License: GPLv2 or later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  * Requires at least: 5.6
@@ -17,8 +16,8 @@
 
 defined( 'ABSPATH' ) || exit;
 
-if( ! defined( 'STIMETOREADLSC_FILE' ) ) {
-  define( 'STIMETOREADLSC_FILE', __FILE__ );
+if( ! defined( 'STTRLSC_FILE' ) ) {
+  define( 'STTRLSC_FILE', __FILE__ );
 }
 
 /**
@@ -30,7 +29,7 @@ require __DIR__ . '/vendor/autoload.php';
 
 if( ! function_exists('simple_time_to_read_lsc')) {
   function simple_time_to_read_lsc() {
-    return \lc\stimetoreadlsc\includes\SimpleTimeToReadClass::instance();
+    return \lc\sttrlsc\includes\SimpleTimeToReadClass::instance();
   }
 
   simple_time_to_read_lsc();
